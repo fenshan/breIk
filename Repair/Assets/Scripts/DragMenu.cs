@@ -16,8 +16,12 @@ public class DragMenu : MonoBehaviour, IDragHandler
 
     public void OnDrag(PointerEventData eventData)
     {
-        transform.position = eventData.position;
-        SecondaryBars.position = eventData.position + delta;
+        Vector2 AuxPos = eventData.position;
+        if (AuxPos.x >= 0 && AuxPos.x <= Screen.width && AuxPos.y >= 0 && AuxPos.y <= Screen.height)
+        {
+            transform.position = eventData.position;
+            SecondaryBars.position = eventData.position + delta;
+        }
     }
 
 }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public enum DraggableType { meme, gif, sticker, none };
+public enum DraggableType { gif, sticker, none };
 
 public class InteractableBar : MonoBehaviour
 {
@@ -19,8 +19,8 @@ public class InteractableBar : MonoBehaviour
 
     void Start()
     {
-        #region initializate the 3 secondary menu bars
-        Bars = new RectTransform[3];
+        #region initializate the 2 secondary menu bars
+        Bars = new RectTransform[2];
 
         for (int i = 0; i < Bars.Length; ++i)
         {
@@ -30,16 +30,22 @@ public class InteractableBar : MonoBehaviour
             Bars[i].gameObject.SetActive(false);
         }
 
-        //MEME
-
-        //GIF
-
-        //STICKERS, settear content de la barra
-        Transform content = Bars[(int)DraggableType.sticker].Find("Viewport").Find("Content");
-        Sprite[] sprites = Resources.LoadAll<Sprite>("Stickers"); //Application.dataPath +
-        foreach (Sprite s in sprites)
+        //GIF, set content of the secondary bar
+        Transform content0 = Bars[(int)DraggableType.gif].Find("Viewport").Find("Content");
+        Sprite[] sprites0 = Resources.LoadAll<Sprite>("Gifs"); //Application.dataPath +
+        foreach (Sprite s in sprites0)
         {
-            GameObject sticker = Instantiate(StickerButton, content);
+            GameObject sticker = Instantiate(StickerButton, content0);
+            sticker.GetComponent<Image>().sprite = s;
+            sticker.GetComponent<Image>().SetNativeSize();
+        }
+
+        //STICKERS, set content of the secondary bar
+        Transform content1 = Bars[(int)DraggableType.sticker].Find("Viewport").Find("Content");
+        Sprite[] sprites1 = Resources.LoadAll<Sprite>("Stickers"); //Application.dataPath +
+        foreach (Sprite s in sprites1)
+        {
+            GameObject sticker = Instantiate(StickerButton, content1);
             sticker.GetComponent<Image>().sprite = s;
             sticker.GetComponent<Image>().SetNativeSize();
         }
