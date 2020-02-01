@@ -6,10 +6,15 @@ using UnityEngine.EventSystems;
 
 public class DraggableObject : MonoBehaviour, IDragHandler, IPointerDownHandler
 {
-    public RectTransform parent;
+    RectTransform parent;
     public RectTransform child;
 
     RectTransform currentImage;
+
+    public void Start()
+    {
+        parent = GameObject.Find("PoppingUpLayers").GetComponent<RectTransform>();
+    }
 
     public void OnPointerDown(PointerEventData eventData)
     {
