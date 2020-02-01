@@ -4,34 +4,29 @@ using UnityEngine;
 
 public class CameraScroller : MonoBehaviour
 {
-    int CAMERA_MIN = 5;
-    int CAMERA_MAX = 25;
-    float ratio = 15;
+    public static float currentScroll; //between [0, 1]
+    public Vector3 CAMERA_MIN; //0 scroll
+    public Vector3 CAMERA_MAX; //1 scroll
+    public float speedManualScroll;
 
     private void Start()
     {
-        Camera.main.orthographicSize = 5;
+        currentScroll = 0;
     }
 
     void Update()
     {
-        AutomaticScroller();
-        float cameraAux = Camera.main.orthographicSize - Input.mouseScrollDelta.y * Time.deltaTime * ratio;
-        if (cameraAux >= CAMERA_MIN && cameraAux <= CAMERA_MAX) Camera.main.orthographicSize = cameraAux;
-
-
-
-
-
-
-
-
-
+        //UPDATE SCROLL
+        float cameraScrollAux = currentScroll + AutomaticScroller() + Input.mouseScrollDelta.y * Time.deltaTime * speedManualScroll; //TODO manual que solo se sume si es scroll in
+        if (cameraScrollAux > 1) cameraScrollAux = 1;
+        else if (cameraScrollAux < 0) cameraScrollAux = 0;
+        Camera.main.transform.position = Vector3.Lerp(CAMERA_MIN, CAMERA_MAX, cameraScrollAux);
+        currentScroll = cameraScrollAux;
     }
 
-    void AutomaticScroller()
+    float AutomaticScroller()
     {
-
+        return 0;
     }
 
     /*

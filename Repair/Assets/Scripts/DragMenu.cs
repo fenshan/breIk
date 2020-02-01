@@ -8,6 +8,7 @@ public class DragMenu : MonoBehaviour, IDragHandler
 {
     public RectTransform SecondaryBars;
     Vector2 delta;
+    public float MENU_SIZE;
 
     public void Start()
     {
@@ -17,11 +18,11 @@ public class DragMenu : MonoBehaviour, IDragHandler
     public void OnDrag(PointerEventData eventData)
     {
         Vector2 AuxPos = eventData.position;
-        if (AuxPos.x >= 0 && AuxPos.x <= Screen.width && AuxPos.y >= 0 && AuxPos.y <= Screen.height)
-        {
-            transform.position = eventData.position;
-            SecondaryBars.position = eventData.position + delta;
-        }
+
+        //for not taking the menu outside the screen 
+        Vector2 newPos = new Vector2(Mathf.Clamp(AuxPos.x, MENU_SIZE, Screen.width - MENU_SIZE), Mathf.Clamp(AuxPos.y, MENU_SIZE, Screen.height - MENU_SIZE));
+        transform.position = newPos;
+        SecondaryBars.position = newPos + delta;
     }
 
 }
