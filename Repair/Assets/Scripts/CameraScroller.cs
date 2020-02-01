@@ -17,14 +17,14 @@ public class CameraScroller : MonoBehaviour
     void Update()
     {
         //UPDATE SCROLL
-        float cameraScrollAux = currentScroll + AutomaticScroller() + Input.mouseScrollDelta.y * Time.deltaTime * speedManualScroll; //TODO manual que solo se sume si es scroll in
+        float cameraScrollAux = currentScroll + AutomaticScroller() - Input.mouseScrollDelta.y * Time.deltaTime * speedManualScroll; //TODO manual que solo se sume si es scroll in
         if (cameraScrollAux > 1) cameraScrollAux = 1;
         else if (cameraScrollAux < 0) cameraScrollAux = 0;
         Camera.main.transform.position = Vector3.Lerp(CAMERA_MIN, CAMERA_MAX, cameraScrollAux);
         currentScroll = cameraScrollAux;
     }
 
-    float AutomaticScroller()
+    float AutomaticScroller() //TODO automatic scroll out
     {
         return 0;
     }

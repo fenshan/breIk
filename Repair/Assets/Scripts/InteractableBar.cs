@@ -29,6 +29,8 @@ public class InteractableBar : MonoBehaviour
             Bars[i].position = transform.position + new Vector3(positionX, positionY, 0) * transform.localScale.x;
             Bars[i].GetComponent<Image>().sprite = backgroundsSecondaryBar[i];
             Bars[i].gameObject.SetActive(false);
+            //Close button
+            Bars[i].Find("CloseButton").GetComponent<Button>().onClick.AddListener(delegate () { Close(); });
         }
 
         //GIF, set content of the secondary bar
@@ -70,5 +72,6 @@ public class InteractableBar : MonoBehaviour
     public void Close()
     {
         Bars[(int)currentType].gameObject.SetActive(false);
+        currentType = DraggableType.none;
     }
 }
