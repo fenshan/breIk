@@ -13,6 +13,7 @@ public class InteractableBar : MonoBehaviour
 
     public Sprite[] backgroundsSecondaryBar;
     public GameObject StickerButton;
+    public GameObject[] GifButtons;
 
     DraggableType currentType = DraggableType.none;
     RectTransform[] Bars;
@@ -32,18 +33,16 @@ public class InteractableBar : MonoBehaviour
 
         //GIF, set content of the secondary bar
         Transform content0 = Bars[(int)DraggableType.gif].Find("Viewport").Find("Content");
-        Sprite[] sprites0 = Resources.LoadAll<Sprite>("Gifs"); //Application.dataPath +
-        foreach (Sprite s in sprites0)
+        foreach (GameObject g in GifButtons)
         {
-            GameObject sticker = Instantiate(StickerButton, content0);
-            sticker.GetComponent<Image>().sprite = s;
+            GameObject sticker = Instantiate(g, content0);
             sticker.GetComponent<Image>().SetNativeSize();
         }
 
         //STICKERS, set content of the secondary bar
         Transform content1 = Bars[(int)DraggableType.sticker].Find("Viewport").Find("Content");
-        Sprite[] sprites1 = Resources.LoadAll<Sprite>("Stickers"); //Application.dataPath +
-        foreach (Sprite s in sprites1)
+        Sprite[] sprites = Resources.LoadAll<Sprite>("Stickers"); //Application.dataPath +
+        foreach (Sprite s in sprites)
         {
             GameObject sticker = Instantiate(StickerButton, content1);
             sticker.GetComponent<Image>().sprite = s;
