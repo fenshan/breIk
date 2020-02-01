@@ -6,25 +6,27 @@ using UnityEngine.EventSystems;
 
 public class DraggableObject : MonoBehaviour, IDragHandler, IPointerDownHandler
 {
-    public RectTransform parent;
+    RectTransform parent;
     public RectTransform child;
 
     RectTransform currentImage;
 
+    public void Start()
+    {
+        parent = GameObject.Find("PoppingUpLayers").GetComponent<RectTransform>();
+    }
+
     public void OnPointerDown(PointerEventData eventData)
     {
-        Debug.Log("I was clicked");
-
         currentImage = Instantiate(child, parent);
         currentImage.position = eventData.position;
         currentImage.GetComponent<Image>().sprite = GetComponent<Image>().sprite;
         currentImage.GetComponent<Image>().SetNativeSize();
+        currentImage.GetComponent<FloatingObject>().ScrollingPlace = CameraScroller.currentScroll;
     }
 
     public void OnDrag(PointerEventData eventData)
     {
-        Debug.Log("I'm being dragged!");
-
         currentImage.position = eventData.position;
     }
 }
