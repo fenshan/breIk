@@ -727,6 +727,8 @@ MonoBehaviour:
   - {fileID: 21300000, guid: a88b3681102031c41be2eefd8d8ade30, type: 3}
   - {fileID: 21300000, guid: 363ec73e03b694642ae9101f8dce7546, type: 3}
   - {fileID: 21300000, guid: e30eb70801d024c48aabae4ed3b5957c, type: 3}
+  StickerButton: {fileID: 1397414490302079567, guid: e54af84242b119747b3d9735c1016496,
+    type: 3}
 --- !u!1 &1479914367
 GameObject:
   m_ObjectHideFlags: 0

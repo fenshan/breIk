@@ -36,7 +36,7 @@ public class InteractableBar : MonoBehaviour
 
         //STICKERS, settear content de la barra
         Transform content = Bars[(int)DraggableType.sticker].Find("Content");
-        Sprite[] sprites = (Sprite[])Resources.LoadAll(Application.dataPath + "/Images/Stickers");
+        Sprite[] sprites = (Sprite[])Resources.LoadAll("/Stickers");
         foreach (Sprite s in sprites)
         {
             Instantiate(StickerButton);
