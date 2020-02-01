@@ -35,12 +35,13 @@ public class InteractableBar : MonoBehaviour
         //GIF
 
         //STICKERS, settear content de la barra
-        Transform content = Bars[(int)DraggableType.sticker].Find("Content");
-        Sprite[] sprites = (Sprite[])Resources.LoadAll("/Stickers");
+        Transform content = Bars[(int)DraggableType.sticker].Find("Viewport").Find("Content");
+        Sprite[] sprites = Resources.LoadAll<Sprite>("Stickers"); //Application.dataPath +
         foreach (Sprite s in sprites)
         {
-            Instantiate(StickerButton);
-            StickerButton.GetComponent<Image>().sprite = s;
+            GameObject sticker = Instantiate(StickerButton, content);
+            sticker.GetComponent<Image>().sprite = s;
+            sticker.GetComponent<Image>().SetNativeSize();
         }
 
         #endregion initializate the 3 secondary menu bars
@@ -50,13 +51,15 @@ public class InteractableBar : MonoBehaviour
     public void PressedButton(int button)
     {
         DraggableType newType = (DraggableType)button;
+        if (currentType != DraggableType.none) Bars[(int)currentType].gameObject.SetActive(false);
 
         if (newType != currentType)
         {
-            if (currentType != DraggableType.none) Bars[(int)currentType].gameObject.SetActive(false);
             currentType = newType;
             Bars[(int)currentType].gameObject.SetActive(true);
         }
+        else currentType = DraggableType.none;
+
     }
 
     public void Close()
