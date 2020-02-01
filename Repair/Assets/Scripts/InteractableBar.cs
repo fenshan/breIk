@@ -11,6 +11,14 @@ public class InteractableBar : MonoBehaviour
 
     }
 
+    public void Right()
+    {
 
 
+    }
+
+    public void Left()
+    {
+
+    }
 }
