@@ -1,20 +1,30 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems; 
+using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
-public class DraggableObject : MonoBehaviour
+public class DraggableObject : MonoBehaviour, IDragHandler, IPointerDownHandler
 {
-    public void OnPointerClick(PointerEventData eventData)
+    public RectTransform parent;
+    public RectTransform child;
+
+    RectTransform currentImage;
+
+    public void OnPointerDown(PointerEventData eventData)
     {
         Debug.Log("I was clicked");
+
+        currentImage = Instantiate(child, parent);
+        currentImage.position = eventData.position;
+        currentImage.GetComponent<Image>().sprite = GetComponent<Image>().sprite;
+        currentImage.GetComponent<Image>().SetNativeSize();
     }
 
     public void OnDrag(PointerEventData eventData)
     {
         Debug.Log("I'm being dragged!");
+
+        currentImage.position = eventData.position;
     }
-
-
-
 }
