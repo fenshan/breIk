@@ -6,18 +6,22 @@ using UnityEngine.EventSystems;
 
 public class DragMenu : MonoBehaviour, IDragHandler
 {
-    public RectTransform InteractableBar;
+    public RectTransform SecondaryBars;
     Vector2 delta;
 
     public void Start()
     {
-        delta = InteractableBar.position - transform.position;
+        delta = SecondaryBars.position - transform.position;
     }
 
     public void OnDrag(PointerEventData eventData)
     {
-        transform.position = eventData.position;
-        InteractableBar.position = eventData.position + delta;
+        Vector2 AuxPos = eventData.position;
+        if (AuxPos.x >= 0 && AuxPos.x <= Screen.width && AuxPos.y >= 0 && AuxPos.y <= Screen.height)
+        {
+            transform.position = eventData.position;
+            SecondaryBars.position = eventData.position + delta;
+        }
     }
 
 }
