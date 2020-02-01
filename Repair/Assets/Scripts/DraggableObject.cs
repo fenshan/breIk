@@ -18,8 +18,6 @@ public class DraggableObject : MonoBehaviour, IDragHandler, IPointerDownHandler
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        Debug.Log("I was clicked");
-
         currentImage = Instantiate(child, parent);
         currentImage.position = eventData.position;
         currentImage.GetComponent<Image>().sprite = GetComponent<Image>().sprite;
@@ -28,8 +26,6 @@ public class DraggableObject : MonoBehaviour, IDragHandler, IPointerDownHandler
 
     public void OnDrag(PointerEventData eventData)
     {
-        Debug.Log("I'm being dragged!");
-
         currentImage.position = eventData.position;
     }
 }
