@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Scroller : MonoBehaviour
+public class CameraScroller : MonoBehaviour
 {
     int CAMERA_MIN = 5;
     int CAMERA_MAX = 25;
