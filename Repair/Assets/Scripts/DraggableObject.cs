@@ -55,5 +55,6 @@ public class DraggableObject : MonoBehaviour, IDragHandler, IPointerDownHandler,
 
         if (deactivate) SoundEffects.instance.DropAssetDeactivate();
         else SoundEffects.instance.DropAsset();
+        parent.GetComponent<PopUpBadThings>().canPopBadThings = true;
     }
 }
