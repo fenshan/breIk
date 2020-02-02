@@ -66,7 +66,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: e3a9ab73d6fc2a04285db5149ca731db, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 5a20376ac2fc33447bc0f121a24560b0, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -108,8 +108,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ScrollingPlace: 0
+  active: 1
   gif: 1
   bad: 1
+  CanFade: 1
 --- !u!82 &956318767196746157
 AudioSource:
   m_ObjectHideFlags: 0

@@ -66,7 +66,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: de70ae342f3ce7d46adf3b3ee977650c, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 6f7c0938763c4c84384b997528cc099b, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -108,8 +108,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ScrollingPlace: 0
+  active: 1
   gif: 1
   bad: 1
+  CanFade: 1
 --- !u!82 &9058201743082928641
 AudioSource:
   m_ObjectHideFlags: 0
@@ -120,7 +122,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 692dac6020a0c264893da65f25ae2eb8, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 5de96cf2ada820042a1bd81b0b86e71d, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
