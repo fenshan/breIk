@@ -5,12 +5,23 @@ using UnityEngine;
 public class CameraScroller : MonoBehaviour
 {
     public static float currentScroll; //between [0, 1]
-    public Vector3 CAMERA_MIN; //0 scroll
-    public Vector3 CAMERA_MAX; //1 scroll
+    public Vector3 CAMERA_MIN; //just the screen of the laptop. 0 scroll
+    public Vector3 CAMERA_MAX; //whole room. 1 scroll
     public float speedManualScroll;
+
+    AudioSource goodTheme, badTheme;
+    public AudioClip good, bad;
 
     private void Start()
     {
+        //Music themes
+        goodTheme = GetComponents<AudioSource>()[0];
+        goodTheme.clip = good;
+        goodTheme.Play();
+        badTheme = GetComponents<AudioSource>()[1];
+        badTheme.clip = bad;
+        badTheme.Play();
+
         currentScroll = 0;
     }
 
@@ -22,11 +33,19 @@ public class CameraScroller : MonoBehaviour
         else if (cameraScrollAux < 0) cameraScrollAux = 0;
         Camera.main.transform.position = Vector3.Lerp(CAMERA_MIN, CAMERA_MAX, cameraScrollAux);
         currentScroll = cameraScrollAux;
+        SetMusic();
     }
 
     float AutomaticScroller() //TODO automatic scroll out
     {
         return 0;
+    }
+
+    void SetMusic()
+    {
+        goodTheme.volume = 1 - currentScroll;
+        badTheme.volume = currentScroll;
+        badTheme.pitch = Mathf.Lerp(0.9f, 1.1f, currentScroll);
     }
 
     /*

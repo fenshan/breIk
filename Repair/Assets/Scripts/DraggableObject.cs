@@ -9,7 +9,7 @@ public class DraggableObject : MonoBehaviour, IDragHandler, IPointerDownHandler,
     static Canvas canvas;
     RectTransform parent;
     public RectTransform child;
-    public static float RADIO_FOR_DISABLING_BAD = 50;
+    public static float RADIO_FOR_DISABLING_BAD = 70;
 
     RectTransform currentImage;
 
