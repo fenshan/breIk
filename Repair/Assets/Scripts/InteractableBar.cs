@@ -55,6 +55,7 @@ public class InteractableBar : MonoBehaviour
 
     public void PressedButton(int button)
     {
+        SoundEffects.instance.Menu();
         DraggableType newType = (DraggableType)button;
         if (currentType != DraggableType.none) Bars[(int)currentType].gameObject.SetActive(false);
 
@@ -69,6 +70,7 @@ public class InteractableBar : MonoBehaviour
 
     public void Close()
     {
+        SoundEffects.instance.Menu();
         Bars[(int)currentType].gameObject.SetActive(false);
         currentType = DraggableType.none;
     }
