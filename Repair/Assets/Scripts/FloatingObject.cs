@@ -12,6 +12,7 @@ public class FloatingObject : MonoBehaviour
     public bool active = true;
     public bool gif;
     public bool bad;
+    public bool CanFade = true;
 
     void Update()
     {
@@ -26,7 +27,7 @@ public class FloatingObject : MonoBehaviour
             float aux = Mathf.Min(Mathf.Abs(CameraScroller.currentScroll + RANGE - ScrollingPlace), Mathf.Abs(-CameraScroller.currentScroll + RANGE + ScrollingPlace));
 
             //fade out fade in
-            if (aux < RANGE / 2.0f)
+            if (aux < RANGE / 2.0f && CanFade)
             {
                 float alpha = aux * RANGE * 200; //values between 0 and 1
                 gameObject.GetComponent<Image>().color = new Color(1, 1, 1, alpha);
@@ -37,6 +38,7 @@ public class FloatingObject : MonoBehaviour
             {
                 gameObject.GetComponent<Image>().color = Color.white;
                 if (bad) gameObject.GetComponent<AudioSource>().volume = MAX_VOLUME_BAD;
+                if (aux >= RANGE / 2.0f) CanFade = true;
             }
         }
 
@@ -44,6 +46,7 @@ public class FloatingObject : MonoBehaviour
         else
         {
             active = false;
+            CanFade = true;
             gameObject.GetComponent<Image>().enabled = false;
             if (gif) gameObject.GetComponent<Animator>().enabled = false;
             if (bad) gameObject.GetComponent<AudioSource>().enabled = false;

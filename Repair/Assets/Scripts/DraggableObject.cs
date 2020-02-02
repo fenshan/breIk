@@ -47,6 +47,7 @@ public class DraggableObject : MonoBehaviour, IDragHandler, IPointerDownHandler,
                 {
                     f.DeactivateAudio();
                     currentImage.GetComponent<FloatingObject>().ScrollingPlace = f.ScrollingPlace;
+                    currentImage.GetComponent<FloatingObject>().CanFade = false;
                 }
             }
         }
