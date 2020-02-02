@@ -17,8 +17,8 @@ public class DragMenu : MonoBehaviour, IDragHandler
     public void Start()
     {
         canvas = FindObjectOfType<Canvas>();
-        deltaSecondaryBars = (SecondaryBars.position - transform.position)/ canvas.scaleFactor;
-        deltaMenu2 = (Menu2.position - transform.position)/ canvas.scaleFactor;
+        deltaSecondaryBars = (SecondaryBars.position - transform.position) / canvas.scaleFactor;
+        deltaMenu2 = (Menu2.position - transform.position) / canvas.scaleFactor;
     }
 
     public void OnDrag(PointerEventData eventData)
@@ -26,7 +26,9 @@ public class DragMenu : MonoBehaviour, IDragHandler
         Vector2 AuxPos = eventData.position;
 
         //for not taking the menu outside the screen 
-        Vector2 newPos = new Vector2(Mathf.Clamp(AuxPos.x, 0, Screen.width - MENU_SIZE.x * canvas.scaleFactor), Mathf.Clamp(AuxPos.y, 0, Screen.height - MENU_SIZE.y * canvas.scaleFactor));
+        float x = Mathf.Clamp(AuxPos.x, MENU_SIZE.x / 2 * canvas.scaleFactor, Screen.width - MENU_SIZE.x / 2 * canvas.scaleFactor);
+        float y = Mathf.Clamp(AuxPos.y, MENU_SIZE.y / 2 * canvas.scaleFactor, Screen.height - MENU_SIZE.y / 2 * canvas.scaleFactor);
+        Vector2 newPos = new Vector2(x, y);
         transform.position = newPos;
         SecondaryBars.position = newPos + deltaSecondaryBars * canvas.scaleFactor;
         Menu2.position = newPos + deltaMenu2 * canvas.scaleFactor;

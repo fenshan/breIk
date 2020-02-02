@@ -914,11 +914,11 @@ RectTransform:
   m_Father: {fileID: 255241961}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 19, y: 19}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -894.50006, y: -482.5}
   m_SizeDelta: {x: 93, y: 77}
-  m_Pivot: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &746963565
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1150,8 +1150,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 116.3, y: 19}
-  m_SizeDelta: {x: 278, y: 77}
+  m_AnchoredPosition: {x: 19, y: 100}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
 --- !u!222 &951591315
 CanvasRenderer:
@@ -1175,7 +1175,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   secondaryBarPrefab: {fileID: 6349592522568604198, guid: 07799c1160193dc4abb3486f8d1f3454,
     type: 3}
-  positionSecondaryBar: {x: -97, y: 81}
   backgroundsSecondaryBar:
   - {fileID: 21300000, guid: a88b3681102031c41be2eefd8d8ade30, type: 3}
   - {fileID: 21300000, guid: 363ec73e03b694642ae9101f8dce7546, type: 3}
@@ -1504,7 +1503,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 160, y: 30}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2097695466
 CanvasRenderer:
