@@ -5,19 +5,22 @@ using UnityEngine;
 public class PopUpBadThings : MonoBehaviour
 {
     public GameObject[] BadThings;
-    public float CurrentAnxietyLevel;
     static Canvas canvas;
-    public float TIME;
+    public bool canPopBadThings;
+    float STARTING_TIME;
+    float TIME = 15;
 
     private void Start()
     {
+        canPopBadThings = false;
         canvas = FindObjectOfType<Canvas>();
         StartCoroutine(PopUp());
     }
 
     IEnumerator PopUp()
     {
-        //yield return new WaitForSeconds(TIME); TODO
+        while (!canPopBadThings) yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(5f);
         while (true)
         {
             //Instantiate random bad thing
@@ -30,7 +33,8 @@ public class PopUpBadThings : MonoBehaviour
             //Set the Scroll Layer of the floating object
             bad.GetComponent<FloatingObject>().ScrollingPlace = CameraScroller.currentScroll + Random.Range(-FloatingObject.RANGE/2.0f, 0);
             //set the time left until the next bad thing pops up TODO
-            float time = TIME;
+            float time = Random.Range(TIME - TIME / 2, TIME + TIME / 2);
+            TIME = Mathf.Clamp(TIME - 2, 1, 15); //EACH TIME IS FASTER
             yield return new WaitForSeconds(time);
         }
     }
