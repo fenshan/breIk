@@ -11,11 +11,13 @@ public class DragMenu : MonoBehaviour, IDragHandler
     Vector2 deltaSecondaryBars;
     Vector2 deltaMenu2;
 
-    public Vector2 MENU_SIZE;
-    public static Canvas canvas;
+    Vector2 MENU_SIZE;
+    static Canvas canvas;
 
     public void Start()
     {
+        MENU_SIZE = GetComponent<RectTransform>().sizeDelta;
+
         canvas = FindObjectOfType<Canvas>();
         deltaSecondaryBars = (SecondaryBars.position - transform.position) / canvas.scaleFactor;
         deltaMenu2 = (Menu2.position - transform.position) / canvas.scaleFactor;
