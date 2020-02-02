@@ -970,7 +970,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SecondaryBars: {fileID: 951591313}
   Menu2: {fileID: 669777419}
-  MENU_SIZE: {x: 94, y: 76}
 --- !u!1 &862516487
 GameObject:
   m_ObjectHideFlags: 0
@@ -1560,6 +1559,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2097695465}
   - component: {fileID: 2097695466}
+  - component: {fileID: 2097695467}
   m_Layer: 5
   m_Name: PoppingUpLayers
   m_TagString: Untagged
@@ -1594,3 +1594,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2097695464}
   m_CullTransparentMesh: 0
+--- !u!114 &2097695467
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2097695464}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 11fd126724ee6a74ea1cb361bc2ba9f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BadThings:
+  - {fileID: 5840468806392995516, guid: 560048c1d18646f4e870747c37f9c86f, type: 3}
+  - {fileID: 5840468806392995516, guid: 7716e1565dae04f43898a2b7ab981295, type: 3}
+  - {fileID: 5840468806392995516, guid: 2c8524a18e3901c4bbe7ca4c4c8018f2, type: 3}
+  CurrentAnxietyLevel: 0
+  TIME: 3
