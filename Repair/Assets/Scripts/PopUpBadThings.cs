@@ -8,7 +8,7 @@ public class PopUpBadThings : MonoBehaviour
     static Canvas canvas;
     public bool canPopBadThings;
     float STARTING_TIME;
-    float TIME = 15;
+    float TIME;
 
     private void Start()
     {
@@ -31,10 +31,14 @@ public class PopUpBadThings : MonoBehaviour
             float y = Random.Range(BAD_SIZE.y / 2 * canvas.scaleFactor, Screen.height - BAD_SIZE.y / 2 * canvas.scaleFactor);
             bad.GetComponent<RectTransform>().position = new Vector2(x, y);
             //Set the Scroll Layer of the floating object
-            bad.GetComponent<FloatingObject>().ScrollingPlace = CameraScroller.currentScroll + Random.Range(-FloatingObject.RANGE/2.0f, 0);
-            //set the time left until the next bad thing pops up TODO
+            bad.GetComponent<FloatingObject>().ScrollingPlace = CameraScroller.currentScroll + Random.Range(-FloatingObject.RANGE / 2.0f, 0);
+
+            //TIME
+            ++CameraScroller.CurrentAnxietyLevel; //INCREMENT ANXIETY LEVEL EACH TIME SOMETHING BAD POPS UP
+            float aux = CameraScroller.CurrentAnxietyLevel;
+            TIME = 1.3f + 18.24f * Mathf.Exp(-0.217f * aux); //function: 1+18.24*e^(-0.217*x)
+            //set the time left until the next bad thing pops up
             float time = Random.Range(TIME - TIME / 2, TIME + TIME / 2);
-            TIME = Mathf.Clamp(TIME - 2, 1, 15); //EACH TIME IS FASTER
             yield return new WaitForSeconds(time);
         }
     }
