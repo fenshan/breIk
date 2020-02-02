@@ -7,21 +7,33 @@ using UnityEngine.EventSystems;
 public class DragMenu : MonoBehaviour, IDragHandler
 {
     public RectTransform SecondaryBars;
-    Vector2 delta;
+    public RectTransform Menu2;
+    Vector2 deltaSecondaryBars;
+    Vector2 deltaMenu2;
+
+    Vector2 MENU_SIZE;
+    static Canvas canvas;
 
     public void Start()
     {
-        delta = SecondaryBars.position - transform.position;
+        MENU_SIZE = GetComponent<RectTransform>().sizeDelta;
+
+        canvas = FindObjectOfType<Canvas>();
+        deltaSecondaryBars = (SecondaryBars.position - transform.position) / canvas.scaleFactor;
+        deltaMenu2 = (Menu2.position - transform.position) / canvas.scaleFactor;
     }
 
     public void OnDrag(PointerEventData eventData)
     {
         Vector2 AuxPos = eventData.position;
-        if (AuxPos.x >= 0 && AuxPos.x <= Screen.width && AuxPos.y >= 0 && AuxPos.y <= Screen.height)
-        {
-            transform.position = eventData.position;
-            SecondaryBars.position = eventData.position + delta;
-        }
+
+        //for not taking the menu outside the screen 
+        float x = Mathf.Clamp(AuxPos.x, MENU_SIZE.x / 2 * canvas.scaleFactor, Screen.width - MENU_SIZE.x / 2 * canvas.scaleFactor);
+        float y = Mathf.Clamp(AuxPos.y, MENU_SIZE.y / 2 * canvas.scaleFactor, Screen.height - MENU_SIZE.y / 2 * canvas.scaleFactor);
+        Vector2 newPos = new Vector2(x, y);
+        transform.position = newPos;
+        SecondaryBars.position = newPos + deltaSecondaryBars * canvas.scaleFactor;
+        Menu2.position = newPos + deltaMenu2 * canvas.scaleFactor;
     }
 
 }
