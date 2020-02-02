@@ -8,8 +8,7 @@ public enum DraggableType { gif, sticker, none };
 public class InteractableBar : MonoBehaviour
 {
     public RectTransform secondaryBarPrefab;
-    public float positionX;
-    public float positionY;
+    public Vector2 positionSecondaryBar;
 
     public Sprite[] backgroundsSecondaryBar;
     public GameObject StickerButton;
@@ -26,7 +25,7 @@ public class InteractableBar : MonoBehaviour
         for (int i = 0; i < Bars.Length; ++i)
         {
             Bars[i] = Instantiate(secondaryBarPrefab, GetComponent<RectTransform>());
-            Bars[i].position = transform.position + new Vector3(positionX, positionY, 0) * transform.localScale.x;
+            Bars[i].position = transform.position + new Vector3(positionSecondaryBar.x, positionSecondaryBar.y, 0) * transform.localScale.x*DragMenu.canvas.scaleFactor;
             Bars[i].GetComponent<Image>().sprite = backgroundsSecondaryBar[i];
             Bars[i].gameObject.SetActive(false);
             //Close button
