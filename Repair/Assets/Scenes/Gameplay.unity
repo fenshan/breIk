@@ -1611,4 +1611,4 @@ MonoBehaviour:
   - {fileID: 5840468806392995516, guid: 7716e1565dae04f43898a2b7ab981295, type: 3}
   - {fileID: 5840468806392995516, guid: 2c8524a18e3901c4bbe7ca4c4c8018f2, type: 3}
   CurrentAnxietyLevel: 0
-  TIME: 3
+  TIME: 10

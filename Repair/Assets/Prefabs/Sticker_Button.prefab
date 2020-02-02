@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1397414490302079561}
   - component: {fileID: 1397414490302079563}
   m_Layer: 5
-  m_Name: StickerButton
+  m_Name: Sticker_Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -86,5 +86,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89999487c7dcb104c853cd954aaac9de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parent: {fileID: 0}
   child: {fileID: 3722529680864857638, guid: 8df05d7baa075614fa61af8284ca4288, type: 3}
+  RADIO_FOR_DISABLING_BAD: 5

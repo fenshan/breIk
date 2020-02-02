@@ -9,6 +9,7 @@ public class FloatingObject : MonoBehaviour
     public static float MAX_VOLUME_BAD = 0.5f;
 
     public float ScrollingPlace;
+    public bool active = true;
     public bool gif;
     public bool bad;
 
@@ -17,6 +18,7 @@ public class FloatingObject : MonoBehaviour
         //ACTIVE
         if (ScrollingPlace < CameraScroller.currentScroll + RANGE && ScrollingPlace > CameraScroller.currentScroll - RANGE)
         {
+            active = true;
             gameObject.GetComponent<Image>().enabled = true;
             if (gif) gameObject.GetComponent<Animator>().enabled = true;
             if (bad) gameObject.GetComponent<AudioSource>().enabled = true;
@@ -41,9 +43,20 @@ public class FloatingObject : MonoBehaviour
         //INACTIVE
         else
         {
+            active = false;
             gameObject.GetComponent<Image>().enabled = false;
             if (gif) gameObject.GetComponent<Animator>().enabled = false;
             if (bad) gameObject.GetComponent<AudioSource>().enabled = false;
+        }
+    }
+
+    //DEACTIVATE AUDIO
+    public void DeactivateAudio()
+    {
+        if (bad)
+        {
+            gameObject.GetComponent<AudioSource>().volume = 0;
+            bad = false;
         }
     }
 }
