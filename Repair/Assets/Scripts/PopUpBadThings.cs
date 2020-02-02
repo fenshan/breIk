@@ -7,6 +7,7 @@ public class PopUpBadThings : MonoBehaviour
     public GameObject[] BadThings;
     public float CurrentAnxietyLevel;
     static Canvas canvas;
+    public float TIME;
 
     private void Start()
     {
@@ -29,7 +30,7 @@ public class PopUpBadThings : MonoBehaviour
             //Set the Scroll Layer of the floating object
             bad.GetComponent<FloatingObject>().ScrollingPlace = CameraScroller.currentScroll + Random.Range(-FloatingObject.RANGE/2.0f, 0);
             //set the time left until the next bad thing pops up TODO
-            float time = 5f;
+            float time = TIME;
             yield return new WaitForSeconds(time);
         }
     }
