@@ -9,4 +9,9 @@ public class Menu : MonoBehaviour
     {
         SceneManager.LoadScene("Gameplay");
     }
+
+    public void Exit()
+    {
+        Application.Quit();
+    }
 }
