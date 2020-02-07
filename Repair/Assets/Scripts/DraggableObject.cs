@@ -11,7 +11,7 @@ public class DraggableObject : MonoBehaviour, IDragHandler, IPointerDownHandler,
     public RectTransform child;
     public static float RADIO_FOR_DISABLING_BAD = 70;
 
-    RectTransform currentImage;
+    static RectTransform currentImage;
 
     public void Start()
     {
@@ -53,8 +53,19 @@ public class DraggableObject : MonoBehaviour, IDragHandler, IPointerDownHandler,
             }
         }
 
+        currentImage = null;
+
         if (deactivate) SoundEffects.instance.DropAssetDeactivate();
         else SoundEffects.instance.DropAsset();
         parent.GetComponent<PopUpBadThings>().canPopBadThings = true;
+    }
+
+    public static void PutCurrentOnTop()
+    {
+        //if the player is currently dragging an object, put it on top of all other floatingObjects
+        if (currentImage)
+        {
+            currentImage.SetAsLastSibling();
+        }
     }
 }
