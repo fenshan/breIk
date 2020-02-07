@@ -22,7 +22,12 @@ public class DraggableObject : MonoBehaviour, IDragHandler, IPointerDownHandler,
     public void OnPointerDown(PointerEventData eventData)
     {
         currentImage = Instantiate(child, parent);
+        //Position
         currentImage.position = eventData.position;
+        //Size
+        float auxScale = Random.Range(1.5f, 3);
+        currentImage.localScale = new Vector3 (auxScale, auxScale, auxScale);
+        //Sprite
         currentImage.GetComponent<Image>().sprite = GetComponent<Image>().sprite;
         currentImage.GetComponent<Image>().SetNativeSize();
         currentImage.GetComponent<FloatingObject>().ScrollingPlace = CameraScroller.currentScroll;

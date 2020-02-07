@@ -37,7 +37,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 50, y: -204}
-  m_SizeDelta: {x: 120.57143, y: 71.42857}
+  m_SizeDelta: {x: 152.38097, y: 114.28572}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5467969320129983945
 CanvasRenderer:
@@ -107,4 +107,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ScrollingPlace: 0
+  active: 1
   gif: 1
+  bad: 0
+  CanFade: 1
