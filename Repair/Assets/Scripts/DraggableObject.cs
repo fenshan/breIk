@@ -26,11 +26,11 @@ public class DraggableObject : MonoBehaviour, IDragHandler, IPointerDownHandler,
         currentImage.position = eventData.position;
         //Size
         float auxAlpha = Random.Range(0f, 1f);
-        //x=[0,0.8) y=[1.4, 1.8] linear function 0.5 x + 1.4 (linear)
-        //x=[0.8, 1] y=[1.8, 2.5] periodic function -2.00851 sin(x) - 6.06943 cos(x) + 7.46943 (periodic) 
+        //x=[0,0.8) y=[1.1, 1.5] linear function 0.5 x + 1.1 (linear)
+        //x=[0.8, 1] y=[1.5, 2.0] periodic function -1.1949 sin(x) - 4.14505 cos(x) + 5.24505 (periodic)
         float auxScale;
-        if (auxAlpha < 0.8) auxScale = 0.5f * auxAlpha + 1.4f;
-        else auxScale = -2.00851f * Mathf.Sin(auxAlpha) - 6.06943f * Mathf.Cos(auxAlpha) + 7.46943f;
+        if (auxAlpha < 0.8) auxScale = 0.5f * auxAlpha + 1.1f;
+        else auxScale = -1.1949f * Mathf.Sin(auxAlpha) - 4.14505f * Mathf.Cos(auxAlpha) + 5.24505f;
 
         currentImage.localScale = new Vector3(auxScale, auxScale, auxScale);
         //Sprite
