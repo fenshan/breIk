@@ -7,7 +7,8 @@ using UnityEngine.EventSystems;
 public class DraggableObject : MonoBehaviour, IDragHandler, IPointerDownHandler, IPointerUpHandler
 {
     static Canvas canvas;
-    RectTransform parent;
+    RectTransform parent0;
+    RectTransform parent1;
     public RectTransform child;
     public static float RADIO_FOR_DISABLING_BAD = 70;
 
@@ -16,12 +17,13 @@ public class DraggableObject : MonoBehaviour, IDragHandler, IPointerDownHandler,
     public void Start()
     {
         canvas = FindObjectOfType<Canvas>();
-        parent = GameObject.Find("PoppingUpLayers").GetComponent<RectTransform>();
+        parent0 = GameObject.Find("Dragging").GetComponent<RectTransform>();
+        parent1 = GameObject.Find("PoppingUpLayers").GetComponent<RectTransform>();
     }
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        currentImage = Instantiate(child, parent);
+        currentImage = Instantiate(child, parent0);
         //Position
         currentImage.position = eventData.position;
         //Size
@@ -47,8 +49,11 @@ public class DraggableObject : MonoBehaviour, IDragHandler, IPointerDownHandler,
     //Check if the placed good thing is disabling any bad thing
     public void OnPointerUp(PointerEventData eventData)
     {
+        currentImage.parent = parent1;
+        currentImage.SetAsLastSibling();
+
         bool deactivate = false;
-        foreach (FloatingObject f in parent.GetComponentsInChildren<FloatingObject>())
+        foreach (FloatingObject f in parent1.GetComponentsInChildren<FloatingObject>())
         {
             //only search between the active and bad items 
             if (f.active && f.bad)
@@ -68,15 +73,15 @@ public class DraggableObject : MonoBehaviour, IDragHandler, IPointerDownHandler,
 
         if (deactivate) SoundEffects.instance.DropAssetDeactivate();
         else SoundEffects.instance.DropAsset();
-        parent.GetComponent<PopUpBadThings>().canPopBadThings = true;
+        parent1.GetComponent<PopUpBadThings>().canPopBadThings = true;
     }
 
-    public static void PutCurrentOnTop()
-    {
-        //if the player is currently dragging an object, put it on top of all other floatingObjects
-        if (currentImage)
-        {
-            currentImage.SetAsLastSibling();
-        }
-    }
+    //public static void PutCurrentOnTop()
+    //{
+    //    //if the player is currently dragging an object, put it on top of all other floatingObjects
+    //    if (currentImage)
+    //    {
+    //        currentImage.SetAsLastSibling();
+    //    }
+    //}
 }

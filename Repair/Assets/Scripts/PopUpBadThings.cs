@@ -38,7 +38,7 @@ public class PopUpBadThings : MonoBehaviour
             //Set the Scroll Layer of the floating object
             bad.GetComponent<FloatingObject>().ScrollingPlace = CameraScroller.currentScroll + Random.Range(-FloatingObject.RANGE / 2.0f, 0);
             //If the player is currently dragging a good floating object, put it on top
-            DraggableObject.PutCurrentOnTop();
+            //DraggableObject.PutCurrentOnTop();
         }
     }
 
