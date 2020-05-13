@@ -4,7 +4,10 @@ using UnityEngine;
 
 public class CameraScroller : MonoBehaviour
 {
-    public static int CurrentAnxietyLevel; //It goes up by one each time a bad thing pops up. It is exponential in time (setted from PopUpBadThings)
+    public GameObject poppingUp;
+    public static int CurrentAnxietyLevel; //Number of bad things activated and currently visible. On this depends the ending of the game
+    public static int CurrentBlockingLevel; //Number of bad things deactivated and currently visible. On this depends PopUpBadThings
+
     public static float currentScroll; //between [0, 1]
     public Vector3 CAMERA_MIN; //just the screen of the laptop. 0 scroll
     public Vector3 CAMERA_MAX; //whole room. 1 scroll
@@ -18,6 +21,7 @@ public class CameraScroller : MonoBehaviour
     private void Start()
     {
         CurrentAnxietyLevel = 0;
+        CurrentBlockingLevel = 0;
         currentScroll = 1;
 
         //Music themes
@@ -33,6 +37,8 @@ public class CameraScroller : MonoBehaviour
 
         SetMusic();
         SetGlitchEffect();
+
+        StartCoroutine(UpdateAnxietyAndBlockingLevel());
     }
 
     void Update()
@@ -45,6 +51,32 @@ public class CameraScroller : MonoBehaviour
             Camera.main.transform.position = Vector3.Lerp(CAMERA_MIN, CAMERA_MAX, currentScroll);
             SetMusic();
             SetGlitchEffect();
+        }
+    }
+
+    //UPDATE ANXIETY AND BLOCKING LEVEL
+    IEnumerator UpdateAnxietyAndBlockingLevel()
+    {
+        while (true)
+        {
+            int anxiety = 0;
+            int blocking = 0;
+            FloatingObject[] objects = poppingUp.GetComponentsInChildren<FloatingObject>();
+            foreach (FloatingObject o in objects)
+            {
+                if (o.bad && o.active) ++anxiety;
+                else if (o.wasBad && o.active) ++blocking;
+            }
+            CurrentAnxietyLevel = anxiety;
+
+            if (CurrentBlockingLevel != blocking)
+            {
+                CurrentBlockingLevel = blocking;
+                //update time_left to next Bad Thing to pop up
+                poppingUp.GetComponent<PopUpBadThings>().UpdateTimeLeft();
+            }
+
+            yield return new WaitForSeconds(0.4f);
         }
     }
 

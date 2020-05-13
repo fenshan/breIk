@@ -338,8 +338,8 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children:
-  - {fileID: 951591313}
   - {fileID: 2097695465}
+  - {fileID: 951591313}
   - {fileID: 669777419}
   - {fileID: 746963564}
   m_Father: {fileID: 0}
@@ -513,6 +513,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 177b308fb35f6ea4db5dcff35605b07a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  poppingUp: {fileID: 2097695464}
   CAMERA_MIN: {x: -1.6, y: 11.13, z: -6.79}
   CAMERA_MAX: {x: 0, y: 0, z: -86.9}
   speedManualScroll: 1
@@ -1295,7 +1296,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 255241961}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -2117,7 +2118,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 255241961}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
