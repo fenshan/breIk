@@ -8,7 +8,7 @@ public class PopUpBadThings : MonoBehaviour
     public GameObject[] BadThings;
     public bool canPopBadThings = false;
     float TIME_WHEN_SET;
-    float time_left = 5;
+    float time_left = 3; //todo cambiar a 15 o así
 
     private void Update()
     {
