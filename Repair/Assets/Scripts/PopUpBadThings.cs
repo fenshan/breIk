@@ -6,7 +6,6 @@ using UnityEngine.UI;
 public class PopUpBadThings : MonoBehaviour
 {
     public GameObject[] BadThings;
-    static Canvas canvas;
     public bool canPopBadThings;
     float STARTING_TIME;
     float TIME;
@@ -14,7 +13,6 @@ public class PopUpBadThings : MonoBehaviour
     private void Start()
     {
         canPopBadThings = false;
-        canvas = FindObjectOfType<Canvas>();
         StartCoroutine(PopUp());
     }
 

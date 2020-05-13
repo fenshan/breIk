@@ -52,7 +52,6 @@ public class InteractableBar : MonoBehaviour
         #endregion initializate the 3 secondary menu bars
     }
 
-
     public void PressedButton(int button)
     {
         SoundEffects.instance.Menu();
@@ -65,7 +64,6 @@ public class InteractableBar : MonoBehaviour
             Bars[(int)currentType].gameObject.SetActive(true);
         }
         else currentType = DraggableType.none;
-
     }
 
     public void Close()

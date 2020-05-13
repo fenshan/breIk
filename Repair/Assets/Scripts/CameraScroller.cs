@@ -40,8 +40,8 @@ public class CameraScroller : MonoBehaviour
 
     void SetMusic()
     {
-        goodTheme.volume = currentScroll;
-        badTheme.volume = 1 - currentScroll;
+        goodTheme.volume = Mathf.Lerp(0.5f, 1, currentScroll);
+        badTheme.volume = Mathf.Lerp(0.15f, 0, currentScroll);
         badTheme.pitch = Mathf.Lerp(0.9f, 1.1f, 1 - currentScroll);
     }
 
