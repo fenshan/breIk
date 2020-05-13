@@ -515,7 +515,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CAMERA_MIN: {x: -1.6, y: 11.13, z: -6.79}
   CAMERA_MAX: {x: 0, y: 0, z: -86.9}
-  speedManualScroll: 0.7
+  speedManualScroll: 1
   good: {fileID: 8300000, guid: 34b494f4d4d54c44dbc0d4c29a28df43, type: 3}
   bad: {fileID: 8300000, guid: 85456b566be56304992cd059712cbbd8, type: 3}
 --- !u!20 &519420031

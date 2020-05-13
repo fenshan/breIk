@@ -6,8 +6,8 @@ using UnityEngine.UI;
 //good and bad things floating in the screen [created from PopUpBadThings and DraggableObject]
 public class FloatingObject : MonoBehaviour
 {
-    public static float RANGE = 0.07f;
-    public static float MAX_VOLUME_BAD = 0.5f;
+    public static float RANGE = 0.28f;
+    public static float MAX_VOLUME_BAD = 0.45f;
 
     public float ScrollingPlace; //scrolling place [0, 1] of this floating object
     public bool active = true;
