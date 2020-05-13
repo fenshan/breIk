@@ -13,6 +13,8 @@ public class CameraScroller : MonoBehaviour
     AudioSource goodTheme, badTheme;
     public AudioClip good, bad;
 
+    GlitchEffect shader;
+
     private void Start()
     {
         CurrentAnxietyLevel = 0;
@@ -26,16 +28,24 @@ public class CameraScroller : MonoBehaviour
         badTheme.clip = bad;
         badTheme.Play();
         //
+
+        shader = GetComponent<GlitchEffect>();
+
+        SetMusic();
+        SetGlitchEffect();
     }
 
     void Update()
     {
         //UPDATE SCROLL
-        float cameraScrollAux = currentScroll - Input.mouseScrollDelta.y * Time.deltaTime * speedManualScroll;
-        cameraScrollAux = Mathf.Clamp(cameraScrollAux, 0, 1);
-        Camera.main.transform.position = Vector3.Lerp(CAMERA_MIN, CAMERA_MAX, cameraScrollAux);
-        currentScroll = cameraScrollAux;
-        SetMusic();
+        if (Input.mouseScrollDelta.y != 0)
+        {
+            float cameraScrollAux = currentScroll - Input.mouseScrollDelta.y * Time.deltaTime * speedManualScroll;
+            currentScroll = Mathf.Clamp(cameraScrollAux, 0, 1);
+            Camera.main.transform.position = Vector3.Lerp(CAMERA_MIN, CAMERA_MAX, currentScroll);
+            SetMusic();
+            SetGlitchEffect();
+        }
     }
 
     void SetMusic()
@@ -44,6 +54,16 @@ public class CameraScroller : MonoBehaviour
         badTheme.volume = Mathf.Lerp(0.15f, 0, currentScroll);
         badTheme.pitch = Mathf.Lerp(0.9f, 1.1f, 1 - currentScroll);
     }
+
+    void SetGlitchEffect()
+    {
+        shader.intensity = Mathf.Lerp(0.8f, 0, currentScroll);
+        if (currentScroll > 0.8f) shader.flipIntensity = 0;
+        else shader.flipIntensity = Mathf.Lerp(0.7f, 0.1f, currentScroll);
+        if (currentScroll > 0.5f) shader.colorIntensity = 0;
+        else shader.colorIntensity = Mathf.Lerp(0.5f, 0, currentScroll);
+    }
+
 
     /*
      * Input.GetAxis("Mouse ScrollWheel")
