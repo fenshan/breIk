@@ -30,7 +30,7 @@ public class FloatingObject : MonoBehaviour
             //fade out fade in
             if (aux < RANGE / 2.0f && CanFade)
             {
-                float alpha = aux * RANGE * 200; //values between 0 and 1
+                float alpha = aux * 2 / RANGE; //values between 0 and 1
                 gameObject.GetComponent<Image>().color = new Color(1, 1, 1, alpha);
                 if (bad) gameObject.GetComponent<AudioSource>().volume = Mathf.Lerp(0, MAX_VOLUME_BAD, alpha);
             }
