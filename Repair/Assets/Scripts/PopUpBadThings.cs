@@ -24,7 +24,7 @@ public class PopUpBadThings : MonoBehaviour
         if (time_left <= 0)
         {
             //TIME
-            float aux = TimeFunction(CameraScroller.CurrentBlockingLevel);
+            float aux = TimeFunction(GameManager.CurrentBlockingLevel);
             //set the time left until the next bad thing pops up
             TIME_WHEN_SET = Random.Range(aux - aux / 2, aux + aux / 2);
             time_left = TIME_WHEN_SET;
@@ -42,7 +42,7 @@ public class PopUpBadThings : MonoBehaviour
             //Rotation
             bad.transform.rotation = Quaternion.Euler(0, 0, Random.Range(-15, 15));
             //Set the Scroll Layer of the floating object
-            bad.GetComponent<FloatingObject>().ScrollingPlace = CameraScroller.currentScroll + Random.Range(-FloatingObject.RANGE / 2.0f, 0);
+            bad.GetComponent<FloatingObject>().ScrollingPlace = GameManager.currentScroll + Random.Range(-FloatingObject.RANGE / 2.0f, 0);
             //If the player is currently dragging a good floating object, put it on top
             //DraggableObject.PutCurrentOnTop();
         }
@@ -52,7 +52,7 @@ public class PopUpBadThings : MonoBehaviour
     public void UpdateTimeLeft()
     {
         //TIME
-        float aux = TimeFunction(CameraScroller.CurrentBlockingLevel);
+        float aux = TimeFunction(GameManager.CurrentBlockingLevel);
         float time_left_aux = Random.Range(aux - aux / 2, aux + aux / 2);
 
         time_left = time_left_aux - TIME_WHEN_SET + time_left;
@@ -61,7 +61,8 @@ public class PopUpBadThings : MonoBehaviour
 
     private float TimeFunction(int blocking)
     {
-        return 1.3f + 18.24f * Mathf.Exp(-0.217f * blocking); //function: 1+18.24*e^(-0.217*x)
+        //return 1.3f + 18.24f * Mathf.Exp(-0.217f * blocking); //function: 1+18.24*e^(-0.217*x) todo active
+        return 2;
     }
 
 

@@ -19,14 +19,14 @@ public class FloatingObject : MonoBehaviour
     void Update()
     {
         //ACTIVE
-        if (ScrollingPlace < CameraScroller.currentScroll + RANGE && ScrollingPlace > CameraScroller.currentScroll - RANGE)
+        if (ScrollingPlace < GameManager.currentScroll + RANGE && ScrollingPlace > GameManager.currentScroll - RANGE)
         {
             active = true;
             gameObject.GetComponent<Image>().enabled = true;
             if (gif) gameObject.GetComponent<Animator>().enabled = true;
             if (bad) gameObject.GetComponent<AudioSource>().enabled = true;
 
-            float aux = Mathf.Min(Mathf.Abs(CameraScroller.currentScroll + RANGE - ScrollingPlace), Mathf.Abs(-CameraScroller.currentScroll + RANGE + ScrollingPlace));
+            float aux = Mathf.Min(Mathf.Abs(GameManager.currentScroll + RANGE - ScrollingPlace), Mathf.Abs(-GameManager.currentScroll + RANGE + ScrollingPlace));
 
             //fade out fade in
             if (aux < RANGE / 2.0f && CanFade)

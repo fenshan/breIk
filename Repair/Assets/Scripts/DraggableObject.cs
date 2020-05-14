@@ -24,11 +24,19 @@ public class DraggableObject : MonoBehaviour, IDragHandler, IPointerDownHandler,
 
     public void Update()
     {
-        if (currentImage && currentCameraScroll != CameraScroller.currentScroll)
+        if (currentImage && currentCameraScroll != GameManager.currentScroll)
         {
-            currentCameraScroll = CameraScroller.currentScroll;
+            currentCameraScroll = GameManager.currentScroll;
             currentImage.GetComponent<FloatingObject>().ScrollingPlace = currentCameraScroll + Random.Range(-FloatingObject.RANGE / 2.0f, 0);
         }
+
+        if (currentImage && GameManager.end)
+        {
+            currentImage.SetParent(parent1);
+            currentImage.SetAsLastSibling();
+            currentImage = null;
+        }
+
     }
 
     public void OnPointerDown(PointerEventData eventData)
@@ -48,18 +56,20 @@ public class DraggableObject : MonoBehaviour, IDragHandler, IPointerDownHandler,
         //Sprite
         currentImage.GetComponent<Image>().sprite = GetComponent<Image>().sprite;
         currentImage.GetComponent<Image>().SetNativeSize();
-        currentCameraScroll = CameraScroller.currentScroll;
+        currentCameraScroll = GameManager.currentScroll;
         currentImage.GetComponent<FloatingObject>().ScrollingPlace = currentCameraScroll + Random.Range(-FloatingObject.RANGE / 2.0f, 0);
     }
 
     public void OnDrag(PointerEventData eventData)
     {
-        currentImage.position = eventData.position;
+        if (currentImage) currentImage.position = eventData.position;
     }
 
     //Check if the placed good thing is disabling any bad thing
     public void OnPointerUp(PointerEventData eventData)
     {
+        if (GameManager.end) return;
+
         currentImage.SetParent(parent1);
         currentImage.SetAsLastSibling();
 
@@ -76,7 +86,7 @@ public class DraggableObject : MonoBehaviour, IDragHandler, IPointerDownHandler,
                     f.DeactivateAudio();
                     currentImage.GetComponent<FloatingObject>().ScrollingPlace = f.ScrollingPlace;
                     currentImage.GetComponent<FloatingObject>().CanFade = false;
-                    CameraScroller.UpdateTotalBlockingLevel(1);
+                    GameManager.UpdateTotalBlockingLevel(1);
                 }
             }
         }
@@ -86,9 +96,9 @@ public class DraggableObject : MonoBehaviour, IDragHandler, IPointerDownHandler,
         if (deactivate) SoundEffects.instance.DropAssetDeactivate();
         else SoundEffects.instance.DropAsset();
         PopUpBadThings.canPopBadThings = true;
-        if (!CameraScroller.canScroll)
+        if (!GameManager.canScroll)
         {
-            CameraScroller.canScroll = true;
+            GameManager.canScroll = true;
             PlayerPrefs.SetInt("DragTutorial", 1);
         }
 

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 //This is for the dragging tutorial
-//The scrolling tutorial is in the CameraScroller script
+//The scrolling tutorial is in the GameManager script
 public class Tutorial : MonoBehaviour
 {
     public RectTransform[] dragTutorial;
@@ -22,7 +22,7 @@ public class Tutorial : MonoBehaviour
 
     IEnumerator MenuAppears()
     {
-        yield return new WaitForSeconds(3.5f);
+        yield return null;//new WaitForSeconds(3.5f); todo
         //activate UI
         foreach (RectTransform r in dragTutorial)
         {
