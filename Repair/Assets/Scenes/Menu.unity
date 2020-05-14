@@ -214,9 +214,9 @@ MonoBehaviour:
   m_AnimationTriggers:
     m_NormalTrigger: Normal
     m_HighlightedTrigger: Highlighted
-    m_PressedTrigger: 
-    m_SelectedTrigger: 
-    m_DisabledTrigger: 
+    m_PressedTrigger: Highlighted
+    m_SelectedTrigger: Normal
+    m_DisabledTrigger: Normal
   m_Interactable: 1
   m_TargetGraphic: {fileID: 120930418}
   m_OnClick:
@@ -380,9 +380,9 @@ MonoBehaviour:
   m_AnimationTriggers:
     m_NormalTrigger: Normal
     m_HighlightedTrigger: Highlighted
-    m_PressedTrigger: 
-    m_SelectedTrigger: 
-    m_DisabledTrigger: 
+    m_PressedTrigger: Highlighted
+    m_SelectedTrigger: Highlighted
+    m_DisabledTrigger: Normal
   m_Interactable: 1
   m_TargetGraphic: {fileID: 180211216}
   m_OnClick:
@@ -854,6 +854,7 @@ GameObject:
   - component: {fileID: 1487957576}
   - component: {fileID: 1487957578}
   - component: {fileID: 1487957577}
+  - component: {fileID: 1487957579}
   m_Layer: 5
   m_Name: VersionText
   m_TagString: Untagged
@@ -920,6 +921,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1487957575}
   m_CullTransparentMesh: 0
+--- !u!114 &1487957579
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1487957575}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 474a10c10ea8e2646820fa03b1313d09, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1781022734
 GameObject:
   m_ObjectHideFlags: 0

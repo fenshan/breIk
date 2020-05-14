@@ -10,7 +10,7 @@ public class DraggableObject : MonoBehaviour, IDragHandler, IPointerDownHandler,
     RectTransform parent0;
     RectTransform parent1;
     public RectTransform child;
-    public static float RADIO_FOR_DISABLING_BAD = 70;
+    public const float RADIO_FOR_DISABLING_BAD = 70;
 
     static RectTransform currentImage;
     float currentCameraScroll;
@@ -28,7 +28,7 @@ public class DraggableObject : MonoBehaviour, IDragHandler, IPointerDownHandler,
         {
             currentCameraScroll = CameraScroller.currentScroll;
             currentImage.GetComponent<FloatingObject>().ScrollingPlace = currentCameraScroll + Random.Range(-FloatingObject.RANGE / 2.0f, 0);
-        }        
+        }
     }
 
     public void OnPointerDown(PointerEventData eventData)
@@ -86,7 +86,12 @@ public class DraggableObject : MonoBehaviour, IDragHandler, IPointerDownHandler,
         if (deactivate) SoundEffects.instance.DropAssetDeactivate();
         else SoundEffects.instance.DropAsset();
         PopUpBadThings.canPopBadThings = true;
-        CameraScroller.canScroll = true;
+        if (!CameraScroller.canScroll)
+        {
+            CameraScroller.canScroll = true;
+            PlayerPrefs.SetInt("DragTutorial", 1);
+        }
+
     }
 
     //public static void PutCurrentOnTop()

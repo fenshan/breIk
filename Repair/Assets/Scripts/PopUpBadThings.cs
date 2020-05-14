@@ -6,9 +6,16 @@ using UnityEngine.UI;
 public class PopUpBadThings : MonoBehaviour
 {
     public GameObject[] BadThings;
-    public static bool canPopBadThings = false;
+    public static bool canPopBadThings;
     float TIME_WHEN_SET;
-    float time_left = 3; //todo cambiar a 15 o así
+    float time_left;
+
+    private void Start()
+    {
+        canPopBadThings = PlayerPrefs.HasKey("DragTutorial") ? true : false;
+        Debug.Log(canPopBadThings);
+        time_left = 3; //todo cambiar a 15 o así
+    }
 
     private void Update()
     {

@@ -1,7 +1,7 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 //This is the main script with every important variable
 public class CameraScroller : MonoBehaviour
@@ -39,7 +39,7 @@ public class CameraScroller : MonoBehaviour
         UpdateTotalBlockingLevel(0);
 
         //scroll tutorial stuff
-        scrollTutorialAlreadyDone = false;
+        scrollTutorialAlreadyDone = PlayerPrefs.HasKey("ScrollTutorial") ? true : false;
         tutorialCurrentlyPlaying = false;
         dimScrollingTutorial.enabled = false;
         scrollingAnimation = dimScrollingTutorial.rectTransform.GetChild(0).gameObject;
@@ -47,7 +47,7 @@ public class CameraScroller : MonoBehaviour
 
         //current scroll
         currentScroll = 1;
-        canScroll = false;
+        canScroll = PlayerPrefs.HasKey("DragTutorial") ? true : false;
 
         //Music themes
         goodTheme = GetComponents<AudioSource>()[0];
@@ -76,6 +76,14 @@ public class CameraScroller : MonoBehaviour
             Camera.main.transform.position = Vector3.Lerp(CAMERA_MIN, CAMERA_MAX, currentScroll);
             SetMusic();
             SetGlitchEffect();
+        }
+
+        //UPDATE ESC
+        if (Input.GetKey(KeyCode.Escape))
+        {
+            AudioSource[] audios = FindObjectsOfType<AudioSource>();
+            SetSlowing(1, audios);
+            SceneManager.LoadScene("Menu");
         }
     }
 
@@ -106,6 +114,7 @@ public class CameraScroller : MonoBehaviour
                 {
                     scrollTutorialAlreadyDone = true;
                     tutorialCurrentlyPlaying = true;
+                    PlayerPrefs.SetInt("ScrollTutorial", 1);
                     StartCoroutine(ScrollTutorial());
                 }
             }
