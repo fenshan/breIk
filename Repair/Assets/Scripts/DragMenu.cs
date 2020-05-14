@@ -21,6 +21,7 @@ public class DragMenu : MonoBehaviour, IDragHandler
         canvas = FindObjectOfType<Canvas>();
         deltaSecondaryBars = (SecondaryBars.position - transform.position) / canvas.scaleFactor;
         deltaMenu2 = (Menu2.position - transform.position) / canvas.scaleFactor;
+
     }
 
     public void OnDrag(PointerEventData eventData)

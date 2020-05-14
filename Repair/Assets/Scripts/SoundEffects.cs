@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SoundEffects : MonoBehaviour
 {
-    public AudioClip dropAsset, dropAssetDeactivate, menu, pickAsset;
+    public AudioClip dropAsset, dropAssetDeactivate, menuAppears, menu, pickAsset;
 
     AudioSource source;
     public static SoundEffects instance;
@@ -24,6 +24,12 @@ public class SoundEffects : MonoBehaviour
     public void DropAssetDeactivate()
     {
         source.clip = dropAssetDeactivate;
+        source.Play();
+    }
+
+    public void MenuAppears()
+    {
+        source.clip = menuAppears;
         source.Play();
     }
 

@@ -1,0 +1,31 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class Tutorial : MonoBehaviour
+{
+    public RectTransform[] dragTutorial;
+
+    void Start()
+    {
+        //deactivate UI
+        foreach (RectTransform r in dragTutorial)
+        {
+            r.gameObject.SetActive(false);
+        }
+
+        StartCoroutine(MenuAppears());
+    }
+
+    IEnumerator MenuAppears()
+    {
+        yield return new WaitForSeconds(3.5f);
+        //activate UI
+        foreach (RectTransform r in dragTutorial)
+        {
+            r.gameObject.SetActive(true);
+        }
+
+        SoundEffects.instance.MenuAppears();
+    }
+}

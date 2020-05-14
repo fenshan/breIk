@@ -85,7 +85,7 @@ public class CameraScroller : MonoBehaviour
         goodTheme.volume = Mathf.Lerp(0.5f, 1, currentScroll);
 
         //exponential volume 1.00021*e^(-3.78383*x) //exponential (1, 0) (0.8, 0.05) (0.7, 0.08) (0, 1)
-        badTheme.volume = 0.35f * Mathf.Exp(-3.78383f * currentScroll) - 0.004f;
+        badTheme.volume = 0.35f * Mathf.Exp(-3.78383f * currentScroll) - 0.007f;
         badTheme.pitch = Mathf.Lerp(0.9f, 1.1f, 1 - currentScroll);
     }
 
