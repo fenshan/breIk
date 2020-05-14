@@ -6,8 +6,8 @@ using UnityEngine.UI;
 //good and bad things floating in the screen [created from PopUpBadThings and DraggableObject]
 public class FloatingObject : MonoBehaviour
 {
-    public static float RANGE = 0.20f; // min: 3 layers // max: 5 layers //
-    public static float MAX_VOLUME_BAD = 0.45f;
+    public static float RANGE = 0.20f; // min: 2 layers // max: 4 layers // [because bad things pop up in a random place in a range of the currentScroll]
+    public static float MAX_VOLUME_BAD = 0.35f;
 
     public float ScrollingPlace; //scrolling place [0, 1] of this floating object
     public bool active = true;
@@ -33,7 +33,7 @@ public class FloatingObject : MonoBehaviour
             {
                 float alpha = aux * 2 / RANGE; //values between 0 and 1
                 gameObject.GetComponent<Image>().color = new Color(1, 1, 1, Mathf.Lerp(0.3f, 1, alpha));
-                if (bad) gameObject.GetComponent<AudioSource>().volume = Mathf.Lerp(0.2f, MAX_VOLUME_BAD, alpha);
+                if (bad) gameObject.GetComponent<AudioSource>().volume = Mathf.Lerp(0.1f, MAX_VOLUME_BAD, alpha);
             }
             //not fade in or fade out
             else

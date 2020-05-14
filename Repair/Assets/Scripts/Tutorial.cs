@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//This is for the dragging tutorial
+//The scrolling tutorial is in the CameraScroller script
 public class Tutorial : MonoBehaviour
 {
     public RectTransform[] dragTutorial;
@@ -16,6 +18,7 @@ public class Tutorial : MonoBehaviour
 
         StartCoroutine(MenuAppears());
     }
+
 
     IEnumerator MenuAppears()
     {

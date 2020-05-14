@@ -13,12 +13,22 @@ public class DraggableObject : MonoBehaviour, IDragHandler, IPointerDownHandler,
     public static float RADIO_FOR_DISABLING_BAD = 70;
 
     static RectTransform currentImage;
+    float currentCameraScroll;
 
     public void Start()
     {
         canvas = FindObjectOfType<Canvas>();
         parent0 = GameObject.Find("Dragging").GetComponent<RectTransform>();
         parent1 = GameObject.Find("PoppingUpLayers").GetComponent<RectTransform>();
+    }
+
+    public void Update()
+    {
+        if (currentImage && currentCameraScroll != CameraScroller.currentScroll)
+        {
+            currentCameraScroll = CameraScroller.currentScroll;
+            currentImage.GetComponent<FloatingObject>().ScrollingPlace = currentCameraScroll + Random.Range(-FloatingObject.RANGE / 2.0f, 0);
+        }        
     }
 
     public void OnPointerDown(PointerEventData eventData)
@@ -38,7 +48,8 @@ public class DraggableObject : MonoBehaviour, IDragHandler, IPointerDownHandler,
         //Sprite
         currentImage.GetComponent<Image>().sprite = GetComponent<Image>().sprite;
         currentImage.GetComponent<Image>().SetNativeSize();
-        currentImage.GetComponent<FloatingObject>().ScrollingPlace = CameraScroller.currentScroll;
+        currentCameraScroll = CameraScroller.currentScroll;
+        currentImage.GetComponent<FloatingObject>().ScrollingPlace = currentCameraScroll + Random.Range(-FloatingObject.RANGE / 2.0f, 0);
     }
 
     public void OnDrag(PointerEventData eventData)
@@ -49,7 +60,7 @@ public class DraggableObject : MonoBehaviour, IDragHandler, IPointerDownHandler,
     //Check if the placed good thing is disabling any bad thing
     public void OnPointerUp(PointerEventData eventData)
     {
-        currentImage.parent = parent1;
+        currentImage.SetParent(parent1);
         currentImage.SetAsLastSibling();
 
         bool deactivate = false;
@@ -65,6 +76,7 @@ public class DraggableObject : MonoBehaviour, IDragHandler, IPointerDownHandler,
                     f.DeactivateAudio();
                     currentImage.GetComponent<FloatingObject>().ScrollingPlace = f.ScrollingPlace;
                     currentImage.GetComponent<FloatingObject>().CanFade = false;
+                    CameraScroller.UpdateTotalBlockingLevel(1);
                 }
             }
         }
@@ -73,7 +85,8 @@ public class DraggableObject : MonoBehaviour, IDragHandler, IPointerDownHandler,
 
         if (deactivate) SoundEffects.instance.DropAssetDeactivate();
         else SoundEffects.instance.DropAsset();
-        parent1.GetComponent<PopUpBadThings>().canPopBadThings = true;
+        PopUpBadThings.canPopBadThings = true;
+        CameraScroller.canScroll = true;
     }
 
     //public static void PutCurrentOnTop()

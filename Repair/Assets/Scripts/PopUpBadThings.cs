@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class PopUpBadThings : MonoBehaviour
 {
     public GameObject[] BadThings;
-    public bool canPopBadThings = false;
+    public static bool canPopBadThings = false;
     float TIME_WHEN_SET;
     float time_left = 3; //todo cambiar a 15 o así
 
@@ -50,6 +50,7 @@ public class PopUpBadThings : MonoBehaviour
         float time_left_aux = Random.Range(aux - aux / 2, aux + aux / 2);
 
         time_left = time_left_aux - TIME_WHEN_SET + time_left;
+        TIME_WHEN_SET = time_left_aux;
     }
 
     private float TimeFunction(int blocking)
