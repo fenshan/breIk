@@ -114,7 +114,6 @@ public class CameraScroller : MonoBehaviour
                 {
                     scrollTutorialAlreadyDone = true;
                     tutorialCurrentlyPlaying = true;
-                    PlayerPrefs.SetInt("ScrollTutorial", 1);
                     StartCoroutine(ScrollTutorial());
                 }
             }
@@ -191,6 +190,7 @@ public class CameraScroller : MonoBehaviour
         }
 
         scrollingAnimation.SetActive(false);
+        PlayerPrefs.SetInt("ScrollTutorial", 1);
 
         //SLOW OUT
         currentSlowing += Time.deltaTime * speed;

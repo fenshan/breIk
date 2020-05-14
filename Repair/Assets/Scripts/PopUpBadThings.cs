@@ -13,7 +13,6 @@ public class PopUpBadThings : MonoBehaviour
     private void Start()
     {
         canPopBadThings = PlayerPrefs.HasKey("DragTutorial") ? true : false;
-        Debug.Log(canPopBadThings);
         time_left = 3; //todo cambiar a 15 o así
     }
 
