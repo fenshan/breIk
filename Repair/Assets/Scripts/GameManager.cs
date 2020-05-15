@@ -12,10 +12,10 @@ public class GameManager : MonoBehaviour
     public static int TotalBlockingLevel; //Number of bad things deactivated in total. On this depends the type of final and the next version of the game in the menu
     public static bool end;
 
-    public const int TOO_MUCH_ANXIETY = 8; //if the current anxiety level reach the max anxiety allowed, the game ends
+    public const int TOO_MUCH_ANXIETY = 2; //if the current anxiety level reach the max anxiety allowed, the game ends
     public const int TUTORIAL_SCROLL_ANXIETY = 4; //anxiety level to trigger the scroll tutorial
-    bool scrollTutorialAlreadyDone;
-    bool tutorialCurrentlyPlaying;
+    public static bool scrollTutorialAlreadyDone;
+    public static bool tutorialCurrentlyPlaying;
     public GameObject scrollingAnimation;
 
     public static bool canScroll;
@@ -359,7 +359,7 @@ public class GameManager : MonoBehaviour
 
     IEnumerator PlayWhistle(float crisisTime, float breathingTime)
     {
-        float startingWhistleVolume = 0.6f;
+        float startingWhistleVolume = 0.5f;
         //Start
         whistleSource.clip = whistle;
         whistleSource.volume = startingWhistleVolume;

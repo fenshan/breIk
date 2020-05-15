@@ -30,7 +30,7 @@ public class DraggableObject : MonoBehaviour, IDragHandler, IPointerDownHandler,
             currentImage.GetComponent<FloatingObject>().ScrollingPlace = currentCameraScroll + Random.Range(-FloatingObject.RANGE / 2.0f, 0);
         }
 
-        if (currentImage && GameManager.end)
+        if (currentImage && (GameManager.end || GameManager.tutorialCurrentlyPlaying))
         {
             currentImage.SetParent(parent1);
             currentImage.SetAsLastSibling();
@@ -68,7 +68,7 @@ public class DraggableObject : MonoBehaviour, IDragHandler, IPointerDownHandler,
     //Check if the placed good thing is disabling any bad thing
     public void OnPointerUp(PointerEventData eventData)
     {
-        if (GameManager.end) return;
+        if (GameManager.end || GameManager.tutorialCurrentlyPlaying) return;
 
         currentImage.SetParent(parent1);
         currentImage.SetAsLastSibling();
