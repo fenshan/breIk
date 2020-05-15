@@ -10,7 +10,7 @@ public class DraggableObject : MonoBehaviour, IDragHandler, IPointerDownHandler,
     RectTransform parent0;
     RectTransform parent1;
     public RectTransform child;
-    public const float RADIO_FOR_DISABLING_BAD = 70;
+    public const float RADIO_FOR_DISABLING_BAD = 90;
 
     static RectTransform currentImage;
     float currentCameraScroll;

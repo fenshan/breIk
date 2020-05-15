@@ -13,7 +13,7 @@ public class PopUpBadThings : MonoBehaviour
     private void Start()
     {
         canPopBadThings = PlayerPrefs.HasKey("DragTutorial") ? true : false;
-        time_left = 3; //todo cambiar a 15 o así
+        time_left = 20; 
     }
 
     private void Update()
@@ -61,8 +61,7 @@ public class PopUpBadThings : MonoBehaviour
 
     private float TimeFunction(int blocking)
     {
-        //return 1.3f + 18.24f * Mathf.Exp(-0.217f * blocking); //function: 1+18.24*e^(-0.217*x) todo active
-        return 3;
+        return 1.3f + 18.24f * Mathf.Exp(-0.217f * blocking); //function: 1+18.24*e^(-0.217*x) 
     }
 
 

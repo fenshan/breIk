@@ -12,8 +12,8 @@ public class GameManager : MonoBehaviour
     public static int TotalBlockingLevel; //Number of bad things deactivated in total. On this depends the type of final and the next version of the game in the menu
     public static bool end;
 
-    public const int TOO_MUCH_ANXIETY = 2;// todo 8; //if the current anxiety level reach the max anxiety allowed, the game ends
-    public const int TUTORIAL_SCROLL_ANXIETY = 10; // todo 4; //anxiety level to trigger the scroll tutorial
+    public const int TOO_MUCH_ANXIETY = 8; //if the current anxiety level reach the max anxiety allowed, the game ends
+    public const int TUTORIAL_SCROLL_ANXIETY = 4; //anxiety level to trigger the scroll tutorial
     bool scrollTutorialAlreadyDone;
     bool tutorialCurrentlyPlaying;
     public GameObject scrollingAnimation;
@@ -273,24 +273,23 @@ public class GameManager : MonoBehaviour
 
         //duration of phases depending on TotalBlockingLevel
         //breathingTime 2.4 5.0 7.9 10.5
-        float crisisTime, breathingTime, initialVisualGlitchTime = 1.0f;
-
-        //todo calibrate crisis time and totalBlockingLevel
+        float crisisTime, breathingTime, silenceTime, initialVisualGlitchTime = 1.0f;
+        
         if (TotalBlockingLevel == 0)
         {
-            crisisTime = 0; breathingTime = 2.4f;
+            crisisTime = 0; breathingTime = 2.4f; silenceTime = 1.5f;
         }
-        else if (TotalBlockingLevel == 1)//< 15) todo 
+        else if (TotalBlockingLevel < 15)
         {
-            crisisTime = 3.0f; breathingTime = 5.0f;
+            crisisTime = 3.0f; breathingTime = 5.0f; silenceTime = 2;
         }
-        else if (TotalBlockingLevel == 2)//< 80) todo
+        else if (TotalBlockingLevel < 100) 
         {
-            crisisTime = 6.0f; breathingTime = 7.9f;
+            crisisTime = 6.0f; breathingTime = 7.9f; silenceTime = 2.5f;
         }
         else
         {
-            crisisTime = 8.0f; breathingTime = 10.5f;
+            crisisTime = 8.0f; breathingTime = 10.5f; silenceTime = 3;
         }
 
         #region crisis
@@ -320,7 +319,7 @@ public class GameManager : MonoBehaviour
         }
         StartCoroutine(PlayBreathing(breathingTime));
         StartCoroutine(OverlayFadingToBlack(1));
-        yield return new WaitForSeconds(breathingTime + 3); // X seconds breathing and whistle fading out + silence
+        yield return new WaitForSeconds(breathingTime + silenceTime); // X seconds breathing and whistle fading out + silence
 
         #endregion breathing
 
@@ -419,9 +418,4 @@ public class GameManager : MonoBehaviour
     }
 
     #endregion ending
-
-    /*
-     * Input.GetAxis("Mouse ScrollWheel")
-     * Input.mouseScrollDelta.y
-     */
 }
