@@ -62,7 +62,7 @@ public class PopUpBadThings : MonoBehaviour
     private float TimeFunction(int blocking)
     {
         //return 1.3f + 18.24f * Mathf.Exp(-0.217f * blocking); //function: 1+18.24*e^(-0.217*x) todo active
-        return 2;
+        return 3;
     }
 
 
