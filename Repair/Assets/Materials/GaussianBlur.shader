@@ -4,15 +4,26 @@
     {
         _MainTex ("Texture", 2D) = "white" {}
         radius ("Radius", Range(0,30)) = 15
-        resolution ("Resolution", float) = 800  
+        resolution ("Resolution", float) = 8192
         hstep("HorizontalStep", Range(0,1)) = 0.5
         vstep("VerticalStep", Range(0,1)) = 0.5  
     }
 
     SubShader
     {
-        Tags {"Queue"="Transparent" "IgnoreProjector"="true" "RenderType"="Transparent"}
-        ZWrite Off Blend SrcAlpha OneMinusSrcAlpha Cull Off
+        Tags {
+            "Queue" = "Transparent"
+            "IgnoreProjector" = "True"
+            "RenderType" = "Transparent"
+            "PreviewType" = "Plane"
+            "CanUseSpriteAtlas" = "True"
+        }
+
+        Cull Off
+        Lighting Off
+        ZWrite Off
+        Blend One OneMinusSrcAlpha
+
         Pass
         {    
             CGPROGRAM
@@ -76,7 +87,9 @@
                 sum += tex2D(_MainTex, float2(tc.x + 2.0*blur*hstep, tc.y + 2.0*blur*vstep)) * 0.1216216216;
                 sum += tex2D(_MainTex, float2(tc.x + 3.0*blur*hstep, tc.y + 3.0*blur*vstep)) * 0.0540540541;
                 sum += tex2D(_MainTex, float2(tc.x + 4.0*blur*hstep, tc.y + 4.0*blur*vstep)) * 0.0162162162;
-                return float4(sum.rgb, 1);
+
+                sum.rgb *= sum.a; //this line is important  for png sprites
+                return sum;
             }    
             ENDCG
         }
