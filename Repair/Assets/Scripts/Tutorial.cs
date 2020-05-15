@@ -22,7 +22,7 @@ public class Tutorial : MonoBehaviour
 
     IEnumerator MenuAppears()
     {
-        yield return null;//new WaitForSeconds(3.5f); todo
+        yield return new WaitForSeconds(3.5f);
         //activate UI
         foreach (RectTransform r in dragTutorial)
         {

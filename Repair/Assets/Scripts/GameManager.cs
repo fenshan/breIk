@@ -12,10 +12,10 @@ public class GameManager : MonoBehaviour
     public static int TotalBlockingLevel; //Number of bad things deactivated in total. On this depends the type of final and the next version of the game in the menu
     public static bool end;
 
-    public const int TOO_MUCH_ANXIETY = 2;// todo 8; //if the current anxiety level reach the max anxiety allowed, the game ends
-    public const int TUTORIAL_SCROLL_ANXIETY = 10; // todo 4; //anxiety level to trigger the scroll tutorial
-    bool scrollTutorialAlreadyDone;
-    bool tutorialCurrentlyPlaying;
+    public const int TOO_MUCH_ANXIETY = 8; //if the current anxiety level reach the max anxiety allowed, the game ends
+    public const int TUTORIAL_SCROLL_ANXIETY = 4; //anxiety level to trigger the scroll tutorial
+    public static bool scrollTutorialAlreadyDone;
+    public static bool tutorialCurrentlyPlaying;
     public GameObject scrollingAnimation;
 
     public static bool canScroll;
@@ -24,11 +24,13 @@ public class GameManager : MonoBehaviour
     public Vector3 CAMERA_MAX; //whole room. 1 scroll
     public float speedManualScroll;
 
-    AudioSource goodTheme, badTheme;
-    public AudioClip good, bad, breathing;
+    AudioSource goodTheme, badTheme, whistleSource;
+    public AudioClip good, bad, breathing, whistle;
 
     GlitchEffect shader;
-    public Image overlayImage;
+    public Image overlayImage, endingScreenshot;
+
+    public GameObject[] UIToHideAtEnding;
 
     private void Start()
     {
@@ -46,6 +48,7 @@ public class GameManager : MonoBehaviour
 
         overlayImage.enabled = false;
         overlayImage.GetComponent<Animator>().enabled = false;
+        endingScreenshot.enabled = false;
 
         //current scroll
         currentScroll = 1;
@@ -58,6 +61,7 @@ public class GameManager : MonoBehaviour
         badTheme = GetComponents<AudioSource>()[1];
         badTheme.clip = bad;
         badTheme.Play();
+        whistleSource = GetComponents<AudioSource>()[2];
         //
 
         shader = GetComponent<GlitchEffect>();
@@ -137,6 +141,7 @@ public class GameManager : MonoBehaviour
         PlayerPrefs.SetInt("Version", TotalBlockingLevel);
     }
 
+    #region music
     void SetMusic()
     {
         goodTheme.volume = CalculateGoodThemeVolume();
@@ -144,16 +149,50 @@ public class GameManager : MonoBehaviour
         if (!tutorialCurrentlyPlaying) badTheme.pitch = CalculateBadThemePitch();
     }
 
+    float CalculateGoodThemeVolume()
+    {
+        //same exponential function of bad volume but inverted //exponential (1, 1) (0.8, 0.98) (0, 0.5)
+
+        return 0.5f * (1 - Mathf.Exp(-3.78383f * currentScroll)) + 0.5f;
+    }
+
+    float CalculateBadThemeVolume()
+    {
+        //exponential volume 1.00021*e^(-3.78383*x) //exponential (1, 0) (0.8, 0.05) (0.7, 0.08) (0, 1)
+        return 0.6f * Mathf.Exp(-3.78383f * currentScroll) - 0.01f;
+    }
+
+    float CalculateBadThemePitch()
+    {
+        return Mathf.Lerp(0.9f, 2.0f, 1 - currentScroll);
+    }
+    #endregion music
+
+    #region glitch
     void SetGlitchEffect()
     {
-        shader.intensity = Mathf.Lerp(0, 0.5f, 1 - currentScroll);
-
-        if (currentScroll > 0.7f) shader.flipIntensity = 0;
-        else shader.flipIntensity = Mathf.Lerp(0, 0.6f, 1 - currentScroll);
-
-        if (currentScroll > 0.4f) shader.colorIntensity = 0;
-        else shader.colorIntensity = Mathf.Lerp(0, 0.6f, 1 - currentScroll);
+        shader.intensity = CalculateShaderIntensity();
+        shader.flipIntensity = CalculateShaderFlip();
+        shader.colorIntensity = CalculateShaderColor();
     }
+
+    float CalculateShaderIntensity()
+    {
+        return Mathf.Lerp(0, 0.5f, 1 - currentScroll);
+    }
+
+    float CalculateShaderFlip()
+    {
+        if (currentScroll > 0.7f) return 0;
+        return Mathf.Lerp(0, 0.6f, 1 - currentScroll);
+    }
+
+    float CalculateShaderColor()
+    {
+        if (currentScroll > 0.4f) return 0;
+        return Mathf.Lerp(0, 0.6f, 1 - currentScroll);
+    }
+    #endregion glitch
 
     #region scroll tutorial
 
@@ -221,107 +260,162 @@ public class GameManager : MonoBehaviour
             }
         }
     }
-
     #endregion scroll tutorial
 
-    float CalculateGoodThemeVolume()
-    {
-        //same exponential function of bad volume but inverted //exponential (1, 1) (0.8, 0.98) (0, 0.5)
-
-        return 0.5f * (1 - Mathf.Exp(-3.78383f * currentScroll)) + 0.5f;
-    }
-
-    float CalculateBadThemeVolume()
-    {
-        //exponential volume 1.00021*e^(-3.78383*x) //exponential (1, 0) (0.8, 0.05) (0.7, 0.08) (0, 1)
-        return 0.6f * Mathf.Exp(-3.78383f * currentScroll) - 0.01f;
-    }
-
-    float CalculateBadThemePitch()
-    {
-        return Mathf.Lerp(0.9f, 2.0f, 1 - currentScroll);
-    }
-
+    #region ending 
     IEnumerator EndingOfGame()
     {
         end = true;
-
-        //duration of phases depending on TotalBlockingLevel
-        //breathingTime 2.4 5.0 7.9 10.5
-        float crisisTime, breathingTime;
-
-        //todo calibrate crisis time and totalBlockingLevel
-        if (TotalBlockingLevel == 0)
-        {
-            crisisTime = 0; breathingTime = 2.4f;
-        }
-        else if (TotalBlockingLevel == 1)//< 20) todo 
-        {
-            crisisTime = 4.0f; breathingTime = 5.0f;
-        }
-        else if (TotalBlockingLevel == 2)//< 80) todo
-        {
-            crisisTime = 7.0f; breathingTime = 7.9f;
-        }
-        else
-        {
-            crisisTime = 10f; breathingTime = 10.5f;
-        }
-
         PopUpBadThings.canPopBadThings = false;
         canScroll = false;
 
-        overlayImage.enabled = true;
-        //todo make better crisis animation 
-        if (crisisTime > 0) overlayImage.GetComponent<Animator>().enabled = true;
-
-        float auxCrisisTime = 0;
-        while (auxCrisisTime < crisisTime)
-        {
-            auxCrisisTime += Time.deltaTime;
-            float alpha = auxCrisisTime / crisisTime;
-            //the first half of the time, the bad sound increases
-            if (alpha <= 0.5f)
-            {
-                goodTheme.volume = Mathf.Lerp(CalculateGoodThemeVolume(), 0, alpha * 2);
-                badTheme.volume = Mathf.Lerp(CalculateBadThemeVolume(), 0.8f, alpha * 2);
-                badTheme.pitch = Mathf.Lerp(CalculateBadThemePitch(), 2.0f, alpha * 2);
-            }
-
-            overlayImage.GetComponent<Animator>().speed = Mathf.Lerp(1, 1.7f, alpha);
-
-            yield return null;
-        }
-
-        //stop every sound and start breathing sound 
         AudioSource[] audios = FindObjectsOfType<AudioSource>();
-        foreach (AudioSource a in audios) a.Stop();
-        goodTheme.clip = breathing;
-        goodTheme.volume = 1;
-        goodTheme.Play();
 
-        overlayImage.GetComponent<Animator>().enabled = false;
-        float auxBreathingTime = 0;
-        while (auxBreathingTime < breathingTime)
+        //duration of phases depending on TotalBlockingLevel
+        //breathingTime 2.4 5.0 7.9 10.5
+        float crisisTime, breathingTime, silenceTime, initialVisualGlitchTime = 1.0f;
+        
+        if (TotalBlockingLevel == 0)
         {
-            auxBreathingTime += Time.deltaTime;
-
-            //first second with the fading in
-            if (auxBreathingTime < 1)
-            {
-                overlayImage.color = new Color(0, 0, 0, auxBreathingTime);
-            }
-            else overlayImage.color = new Color(0, 0, 0, 1);
-
-            yield return null;
+            crisisTime = 0; breathingTime = 2.4f; silenceTime = 1.5f;
         }
+        else if (TotalBlockingLevel < 15)
+        {
+            crisisTime = 3.0f; breathingTime = 5.0f; silenceTime = 2;
+        }
+        else if (TotalBlockingLevel < 100) 
+        {
+            crisisTime = 6.0f; breathingTime = 7.9f; silenceTime = 2.5f;
+        }
+        else
+        {
+            crisisTime = 8.0f; breathingTime = 10.5f; silenceTime = 3;
+        }
+
+        #region crisis
+        if (crisisTime > 0)
+        {
+            StartCoroutine(FreezeScreen());
+            StartCoroutine(PlayWhistle(crisisTime, breathingTime));
+            foreach (AudioSource a in audios)
+            {
+                if (a != whistleSource)
+                {
+                    StartCoroutine(FadeOutAudio(a, crisisTime / 2.0f));
+                }
+            }            
+            StartCoroutine(CrisisShaders(initialVisualGlitchTime, crisisTime - initialVisualGlitchTime));
+
+            yield return new WaitForSeconds(crisisTime);
+        }
+        #endregion crisis
+
+        #region breathing
+
+        //stop every sound and play breathing sound         
+        foreach (AudioSource a in audios)
+        {
+            if (a != whistleSource) a.Stop();
+        }
+        StartCoroutine(PlayBreathing(breathingTime));
+        StartCoroutine(OverlayFadingToBlack(1));
+        yield return new WaitForSeconds(breathingTime + silenceTime); // X seconds breathing and whistle fading out + silence
+
+        #endregion breathing
 
         SceneManager.LoadScene("Menu");
     }
 
+    IEnumerator FreezeScreen()
+    {
+        //Take screenshot
+        yield return new WaitForEndOfFrame();
+        //ScreenCapture.CaptureScreenshot("Assets/Screenshots/" + Random.Range(0, 297498378) + ".png"); //todo quitar
+        Texture2D tex = ScreenCapture.CaptureScreenshotAsTexture(2);
+        Sprite s = Sprite.Create(tex, new Rect(0, 0, tex.width, tex.height), new Vector2(0.5f, 0.5f));
+        endingScreenshot.sprite = s;
+        endingScreenshot.enabled = true;
+        //hide UI
+        foreach (GameObject g in UIToHideAtEnding)
+        {
+            g.SetActive(false);
+        }
+    }
 
-    /*
-     * Input.GetAxis("Mouse ScrollWheel")
-     * Input.mouseScrollDelta.y
-     */
+    IEnumerator FadeOutAudio(AudioSource a, float time)
+    {
+        float startingVolume = a.volume;
+
+        float auxTime = 0;
+        while (auxTime < time)
+        {
+            auxTime += Time.deltaTime;
+            float alpha = auxTime / time;
+            a.volume = Mathf.Lerp(startingVolume, 0, alpha);
+            yield return null;
+        }
+        a.volume = 0;
+    }
+
+    IEnumerator PlayWhistle(float crisisTime, float breathingTime)
+    {
+        float startingWhistleVolume = 0.5f;
+        //Start
+        whistleSource.clip = whistle;
+        whistleSource.volume = startingWhistleVolume;
+        whistleSource.Play();
+        yield return new WaitForSeconds(crisisTime);
+        //Fade out
+        StartCoroutine(FadeOutAudio(whistleSource, breathingTime / 2.0f));
+    }
+
+    IEnumerator PlayBreathing(float time)
+    {
+        goodTheme.clip = breathing;
+        goodTheme.volume = 1;
+        goodTheme.Play();
+        yield return new WaitForSeconds(time);
+        goodTheme.Stop();
+    }
+
+    IEnumerator OverlayFadingToBlack(float time)
+    {
+        overlayImage.enabled = true;
+        overlayImage.GetComponent<Animator>().enabled = false;
+
+        float auxTime = 0;
+        while (auxTime < time)
+        {
+            auxTime += Time.deltaTime;
+            overlayImage.color = new Color(0, 0, 0, auxTime / time);
+            yield return null;
+        }
+        overlayImage.color = new Color(0, 0, 0, 1);
+    }
+
+    IEnumerator CrisisShaders(float timeMAX, float timeINCR)
+    {
+        //MAXIMUM
+        float auxTime = 0;
+        while (auxTime < timeMAX)
+        {
+            auxTime += Time.deltaTime;
+            shader.intensity = shader.flipIntensity = shader.colorIntensity = 1;
+            yield return null;
+        }
+
+        //PROGRESSIVELY INCREASING
+        auxTime = 0;
+        while (auxTime < timeINCR)
+        {
+            auxTime += Time.deltaTime;
+            float alpha = auxTime / timeINCR;
+            shader.intensity = Mathf.Lerp(CalculateShaderIntensity(), 1, alpha);
+            shader.flipIntensity = Mathf.Lerp(CalculateShaderFlip(), 1, alpha);
+            shader.colorIntensity = Mathf.Lerp(CalculateShaderColor(), 1, alpha);
+            yield return null;
+        }
+    }
+
+    #endregion ending
 }
