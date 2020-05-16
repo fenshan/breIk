@@ -15,24 +15,23 @@ public class Menu : MonoBehaviour
         StartCoroutine(SceneFadeIn());
     }
 
-
-    void Update()
-    {
-        if (Input.GetKey(KeyCode.Escape))
-        {
-            Exit();
-        }
-    }
+    //void Update()
+    //{
+    //    if (Input.GetKey(KeyCode.Escape))
+    //    {
+    //        Exit();
+    //    }
+    //}
 
     public void Play()
     {
         SceneManager.LoadScene("Gameplay");
     }
 
-    public void Exit()
-    {
-        Application.Quit();
-    }
+    //public void Exit()
+    //{
+    //    Application.Quit();
+    //}
 
     IEnumerator SceneFadeIn()
     {
