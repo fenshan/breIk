@@ -331,7 +331,7 @@ public class GameManager : MonoBehaviour
     {
         //Take screenshot
         yield return new WaitForEndOfFrame();
-        //ScreenCapture.CaptureScreenshot("Assets/Screenshots/" + Random.Range(0, 297498378) + ".png"); //todo quitar
+        //ScreenCapture.CaptureScreenshot("Assets/Screenshots/" + Random.Range(0, 297498378) + ".png"); //todo to take screenshots and save them
         Texture2D tex = ScreenCapture.CaptureScreenshotAsTexture(2);
         Sprite s = Sprite.Create(tex, new Rect(0, 0, tex.width, tex.height), new Vector2(0.5f, 0.5f));
         endingScreenshot.sprite = s;
