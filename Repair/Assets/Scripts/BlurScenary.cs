@@ -18,7 +18,6 @@ public class BlurScenary : MonoBehaviour
         if (camera_z > minBlurring && camera_z < maxBlurring)
         {
             float alpha = (camera_z - minBlurring) / (maxBlurring - minBlurring);
-            Debug.Log(alpha);
             float blur = Mathf.Lerp(0, 15, alpha);
             sprite.material.SetFloat("radius", blur);
         }
