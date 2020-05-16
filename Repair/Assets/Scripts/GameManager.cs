@@ -52,6 +52,7 @@ public class GameManager : MonoBehaviour
 
         //current scroll
         currentScroll = 1;
+        Camera.main.transform.position = Vector3.Lerp(CAMERA_MIN, CAMERA_MAX, currentScroll);
         canScroll = PlayerPrefs.HasKey("DragTutorial") ? true : false;
 
         //Music themes
@@ -274,7 +275,7 @@ public class GameManager : MonoBehaviour
         //duration of phases depending on TotalBlockingLevel
         //breathingTime 2.4 5.0 7.9 10.5
         float crisisTime, breathingTime, silenceTime, initialVisualGlitchTime = 1.0f;
-        
+
         if (TotalBlockingLevel == 0)
         {
             crisisTime = 0; breathingTime = 2.4f; silenceTime = 1.5f;
@@ -283,7 +284,7 @@ public class GameManager : MonoBehaviour
         {
             crisisTime = 3.0f; breathingTime = 5.0f; silenceTime = 2;
         }
-        else if (TotalBlockingLevel < 100) 
+        else if (TotalBlockingLevel < 100)
         {
             crisisTime = 6.0f; breathingTime = 7.9f; silenceTime = 2.5f;
         }
@@ -303,7 +304,7 @@ public class GameManager : MonoBehaviour
                 {
                     StartCoroutine(FadeOutAudio(a, crisisTime / 2.0f));
                 }
-            }            
+            }
             StartCoroutine(CrisisShaders(initialVisualGlitchTime, crisisTime - initialVisualGlitchTime));
 
             yield return new WaitForSeconds(crisisTime);
