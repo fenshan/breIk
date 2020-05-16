@@ -4,17 +4,27 @@ using UnityEngine;
 
 public class BlurScenary : MonoBehaviour
 {
-    public SpriteRenderer[] blurrableSprites;
-    const float BLURRING_RANGE = 1.0f;
+    public float minBlurring, maxBlurring;
+    SpriteRenderer sprite;
+
+    private void Start()
+    {
+        sprite = GetComponent<SpriteRenderer>();
+    }
 
     void Update()
     {
-        foreach(SpriteRenderer s in blurrableSprites)
+        float camera_z = Camera.main.transform.position.z;
+        if (camera_z > minBlurring && camera_z < maxBlurring)
         {
-            if (Mathf.Abs(s.transform.position.z - Camera.main.transform.position.z)< BLURRING_RANGE)
-            {
-                //s.material.shader.
-            }
-        }        
+            float alpha = (camera_z - minBlurring) / (maxBlurring - minBlurring);
+            Debug.Log(alpha);
+            float blur = Mathf.Lerp(0, 15, alpha);
+            sprite.material.SetFloat("radius", blur);
+        }
+        else
+        {
+            sprite.material.SetFloat("radius", 0);
+        }
     }
 }
