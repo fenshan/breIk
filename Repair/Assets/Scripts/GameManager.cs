@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
     public static bool end;
 
     public const int TOO_MUCH_ANXIETY = 8; //if the current anxiety level reach the max anxiety allowed, the game ends
+    public const int TOO_MUCH_ANXIETY_BEST_ENDING = 3; //if the current anxiety level reach this number and the player has a TotalBlockingLevel of 0
     public const int TUTORIAL_SCROLL_ANXIETY = 4; //anxiety level to trigger the scroll tutorial
     public static bool scrollTutorialAlreadyDone;
     public static bool tutorialCurrentlyPlaying;
@@ -112,7 +113,7 @@ public class GameManager : MonoBehaviour
             {
                 CurrentAnxietyLevel = anxiety;
                 //CHECK IF GAME ENDED
-                if (CurrentAnxietyLevel >= TOO_MUCH_ANXIETY)
+                if (CurrentAnxietyLevel >= TOO_MUCH_ANXIETY || (CurrentAnxietyLevel >= TOO_MUCH_ANXIETY_BEST_ENDING && TotalBlockingLevel == 0))
                 {
                     StartCoroutine(EndingOfGame());
                 }
