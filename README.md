@@ -3,7 +3,7 @@
 <br>
 
 <p align="center"> <a href="https://fenshan.itch.io/breik">
-  <img src="Screenshots/coverImage2.gif" alt="breik itchio link" width="806px" height="453px" >
+  <img src="Screenshots/coverImage2.gif" alt="breik itchio link">
 </a></p>
 
 <p align="center"> https://fenshan.itch.io/breik </p>
