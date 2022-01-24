@@ -6,7 +6,9 @@
   <img src="Screenshots/coverImage2.gif" alt="breik itchio link">
 </a></p>
 
-<p align="center"> https://fenshan.itch.io/breik </p>
+<p align="center"><a href="https://fenshan.itch.io/breik">
+  click here to play it on itch.io!
+  </a></p>
 
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
