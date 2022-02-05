@@ -1,4 +1,4 @@
-# https://github.com/github/linguist/blob/master/docs/overrides.md
+## https://github.com/github/linguist/blob/master/docs/overrides.md
 
 # Apply override to all files and directories in the directory
 _Jam\ builds/** linguist-vendored
