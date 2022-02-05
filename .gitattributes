@@ -1,5 +1,5 @@
 # https://github.com/github/linguist/blob/master/docs/overrides.md
 
 # Apply override to all files and directories in the directory
-_Jam%20builds/** linguist-vendored
-_Itchio%20builds/** linguist-vendored
+_Jam\ builds/** linguist-vendored
+_Itchio\ builds/** linguist-vendored
