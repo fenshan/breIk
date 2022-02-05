@@ -3,3 +3,4 @@
 # Apply override to all files and directories in the directory
 _Jam\ builds/** linguist-vendored
 _Itchio\ builds/** linguist-vendored
+Repair/Assets/Scripts/** linguist-vendored
